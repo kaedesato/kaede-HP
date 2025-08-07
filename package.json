@@ -12,7 +12,6 @@
 		"check:watch": "npx svelte-kit sync && npx svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"devDependencies": {
-		"@cloudflare/workerd-linux-64": "^1.20250807.0",
 		"@playwright/test": "^1.54.2",
 		"@sveltejs/adapter-auto": "^6.0.0",
 		"@sveltejs/adapter-cloudflare": "7.1.0",
