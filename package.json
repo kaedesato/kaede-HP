@@ -32,5 +32,6 @@
 	},
 	"dependencies": {
 		"open-graph-scraper": "^6.10.0"
+
 	}
 }

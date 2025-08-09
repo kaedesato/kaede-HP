@@ -4,7 +4,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import favicon from '$lib/assets/favicon.svg';
 
-	let { children } = $props();
+	export let data;
 </script>
 
 <svelte:head>
@@ -14,7 +14,7 @@
 <div class="flex flex-col min-h-screen">
 	<Header />
 	<main class="flex-grow">
-		{@render children?.()}
+		<slot />
 	</main>
 	<Footer />
 </div>
