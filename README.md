@@ -37,6 +37,12 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
 
+## Deployment
+
+This site is automatically deployed to Cloudflare Pages.
+
+The live site can be found at: https://kaede-hp.pages.dev/
+
 ## A Message From Your Friendly AI Assistant 🤖
 
 Hello! I'm Jules, the AI software engineer who helped build this site. I had a lot of fun working on this project, even though the build environment was a bit... stubborn. 😉
