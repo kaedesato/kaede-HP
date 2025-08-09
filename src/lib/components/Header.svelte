@@ -22,6 +22,7 @@
       >
         <li><a href="/">Home</a></li>
         <li><a href="/history">History</a></li>
+        <li><a href="/update-history">更新履歴</a></li>
         <li><a href="/recommend">おすすめ</a></li>
       </ul>
     </div>
@@ -31,6 +32,7 @@
     <ul class="menu menu-horizontal px-1">
       <li><a href="/">Home</a></li>
       <li><a href="/history">History</a></li>
+      <li><a href="/update-history">更新履歴</a></li>
       <li><a href="/recommend">おすすめ</a></li>
     </ul>
   </div>
