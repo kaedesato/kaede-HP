@@ -22,8 +22,7 @@
       >
         <li><a href="/">Home</a></li>
         <li><a href="/history">History</a></li>
-        <li><a href="/coming-soon">Link</a></li>
-        <li><a href="/instagram">Instagram</a></li>
+        <li><a href="/recommend">おすすめ</a></li>
       </ul>
     </div>
     <a href="/" class="btn btn-ghost normal-case text-xl">佐藤かえで</a>
@@ -32,8 +31,7 @@
     <ul class="menu menu-horizontal px-1">
       <li><a href="/">Home</a></li>
       <li><a href="/history">History</a></li>
-      <li><a href="/coming-soon">Link</a></li>
-      <li><a href="/instagram">Instagram</a></li>
+      <li><a href="/recommend">おすすめ</a></li>
     </ul>
   </div>
   <div class="navbar-end">
