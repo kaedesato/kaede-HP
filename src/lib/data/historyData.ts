@@ -11,7 +11,7 @@ export const historyData: HistoryEvent[] = [
     date: '2024-12-07',
     title: 'Vket 2024 Winterに出展',
     description: '',
-    image: 'https://kaedesato.work/wp-content/uploads/2024/10/toyfactory-1024x576.jpg',
+    image: '/images/toyfactory.jpg',
   },
   {
     date: '2024-08-14',
