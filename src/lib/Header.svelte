@@ -55,7 +55,7 @@
 
 			<div class="flex items-center gap-3 border-l border-white/10 pl-6 hidden md:flex">
 				<a
-					href="https://youtube.com"
+					href="https://youtube.com/@kaede_vtuber"
 					target="_blank"
 					rel="noreferrer"
 					class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800 text-slate-300 border border-slate-700 hover:text-primary hover:border-primary/50 transition-all"
@@ -89,7 +89,7 @@
         <div class="lg:hidden flex items-center">
             <div class="flex items-center gap-3 mr-4 md:hidden">
 				<a
-					href="https://youtube.com"
+					href="https://youtube.com/@kaede_vtuber"
 					target="_blank"
 					rel="noreferrer"
 					class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 text-slate-300 border border-slate-700"
