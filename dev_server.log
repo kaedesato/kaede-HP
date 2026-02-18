@@ -1,0 +1,35 @@
+
+> my-app@0.0.1 dev
+> npx vite dev
+
+8:10:58 PM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v7.3.1  ready in 1139 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+
+🌼   daisyUI 4.12.24
+├─ ✔︎ 2 themes added		https://daisyui.com/docs/themes
+╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
+
+8:12:10 PM [vite-plugin-svelte] src/lib/Header.svelte:89:4 Buttons and links should either contain text or have an `aria-label`, `aria-labelledby` or `title` attribute
+https://svelte.dev/e/a11y_consider_explicit_label
+
+🌼   daisyUI 4.12.24
+├─ ✔︎ 2 themes added		https://daisyui.com/docs/themes
+╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
+
+8:12:13 PM [vite-plugin-svelte] src/lib/Header.svelte:89:4 Buttons and links should either contain text or have an `aria-label`, `aria-labelledby` or `title` attribute
+https://svelte.dev/e/a11y_consider_explicit_label
+8:18:17 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+8:18:17 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+8:18:17 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/6.js
+8:18:17 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+8:18:17 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+8:18:17 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+8:18:17 PM [vite] (client) page reload .svelte-kit/generated/root.js
+8:18:17 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+8:18:17 PM [vite] (ssr) page reload .svelte-kit/generated/root.svelte
+8:19:13 PM [vite] (client) hmr update /src/lib/components/YouTube.svelte, /src/app.css
+8:19:13 PM [vite] (ssr) page reload src/lib/components/YouTube.svelte
