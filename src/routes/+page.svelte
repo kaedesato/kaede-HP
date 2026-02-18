@@ -1,10 +1,28 @@
-<script>
-    // No script needed for static layout
+<script lang="ts">
+    import { onMount } from 'svelte';
+    import { getChannelData, type YouTubeVideo } from '../lib/utils/youtube';
+
+    let isLive = false;
+    let latestVideo: YouTubeVideo | null = null;
+    let isLoading = true;
+    let videoUrl = 'https://youtube.com/@kaede_vtuber';
+
+    onMount(async () => {
+        const data = await getChannelData('UCOl7immiG7B_KWFfeywmRWQ');
+        isLive = data.isLive;
+        latestVideo = data.latestVideo;
+        isLoading = false;
+
+        if (isLive) {
+            videoUrl = `https://www.youtube.com/channel/UCOl7immiG7B_KWFfeywmRWQ/live`;
+        }
+    });
 </script>
 
 <svelte:head>
     <title>佐藤かえで 公式サイト</title>
 </svelte:head>
+
 
 <div class="pb-32">
     <!-- Hero Section -->
@@ -13,6 +31,8 @@
         <div class="absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-lg aspect-square bg-[radial-gradient(circle_at_center,rgba(0,139,139,0.15)_0%,transparent_70%)] -z-10"></div>
 
         <!-- Live Badge -->
+
+        {#if isLive}
         <div class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 px-5 py-2 rounded-full mb-10 shadow-[0_0_20px_rgba(255,122,112,0.15)]">
             <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -20,6 +40,15 @@
             </span>
             <span class="text-primary text-[10px] font-black tracking-[0.2em]">LIVE NOW</span>
         </div>
+        {:else}
+        <div class="inline-flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 px-5 py-2 rounded-full mb-10">
+            <span class="relative flex h-2 w-2">
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-slate-500"></span>
+            </span>
+            <span class="text-slate-400 text-[10px] font-black tracking-[0.2em]">OFFLINE</span>
+        </div>
+        {/if}
+
 
         <h2 class="text-4xl md:text-6xl font-black leading-tight mb-10 tracking-tight max-w-3xl text-white">
             多才な<span class="text-cyan-glow">異能</span>VTuber、<br/>
@@ -57,7 +86,7 @@
         </div>
 
         <div class="w-full max-w-sm flex flex-col gap-4 px-4">
-            <a href="https://youtube.com" class="w-full bg-primary text-white font-black py-4 rounded-xl text-lg shadow-lg shadow-primary/20 transition-all hover:brightness-110 active:scale-95 flex items-center justify-center gap-2">
+            <a href={videoUrl} class="w-full bg-primary text-white font-black py-4 rounded-xl text-lg shadow-lg shadow-primary/20 transition-all hover:brightness-110 active:scale-95 flex items-center justify-center gap-2">
                  <span class="material-symbols-outlined">play_circle</span>
                 YouTubeで配信を視聴
             </a>
@@ -79,16 +108,18 @@
                     </h3>
                     <div class="h-1.5 w-16 bg-primary rounded-full mt-3 shadow-[0_0_8px_rgba(255,122,112,0.5)]"></div>
                 </div>
-                <a href="https://youtube.com" class="text-primary text-xs font-bold flex items-center gap-1 bg-primary/10 px-4 py-2 rounded-full hover:bg-primary/20 transition-all">
+                <a href="https://youtube.com/@kaede_vtuber/videos" class="text-primary text-xs font-bold flex items-center gap-1 bg-primary/10 px-4 py-2 rounded-full hover:bg-primary/20 transition-all">
                     VIEW ALL <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
             </div>
 
-            <div class="relative aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer bg-bg-card">
+
+            {#if latestVideo}
+            <a href={latestVideo.link} target="_blank" rel="noreferrer" class="block relative aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer bg-bg-card">
                 <img
-                    alt="最新の配信"
+                    alt={latestVideo.title}
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtqr1BbzyT-d3qeqdwWpheMhiv0jXLWEkC67hKgwQQDDC728GTm252G1mG99YQLNooNfTqh1MLQ2Bn4rcFjrdcpF_E2hHEJZIcmb5XAvZXb-vm4ItzYBPHPnb-KKA6hJs9SFa9RCX56M89yWjD5Xq86CICxGWcaIfE5BkFy8WmKP2cz9PKcXd_70ygZAlBGHAbpfNhsNp4cFdj6u1sMzXdYtGWicaDsDQZmsEcXjAPxVxz0FKk-C-OwKbX2SoYk2yJ-_nSc6F6BpOS"
+                    src={latestVideo.thumbnail}
                 />
                 <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-all">
                     <div class="size-20 rounded-full bg-primary/90 flex items-center justify-center shadow-2xl shadow-primary/40 group-hover:scale-110 transition-transform">
@@ -96,13 +127,19 @@
                     </div>
                 </div>
                 <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-bg-dark via-bg-dark/90 to-transparent">
-                    <p class="text-xl font-black truncate text-white">【Linux】カーネルの秘密を教えるよ // 001</p>
+                    <p class="text-xl font-black truncate text-white">{latestVideo.title}</p>
                     <div class="flex items-center gap-3 mt-3">
                         <span class="text-xs bg-primary text-white px-2 py-0.5 rounded font-black">NEW</span>
-                        <p class="text-xs text-white/50 font-bold">12.5万回視聴 • 2時間前</p>
+                        <p class="text-xs text-white/50 font-bold">{new Date(latestVideo.pubDate).toLocaleDateString('ja-JP')} • Latest</p>
                     </div>
                 </div>
+            </a>
+            {:else}
+             <div class="relative aspect-video rounded-xl overflow-hidden border border-white/10 bg-bg-card animate-pulse flex items-center justify-center">
+                <span class="text-white/20 font-bold">Fetching latest stream...</span>
             </div>
+            {/if}
+
         </div>
     </section>
 
