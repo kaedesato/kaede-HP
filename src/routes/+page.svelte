@@ -108,7 +108,7 @@
                     </h3>
                     <div class="h-1.5 w-16 bg-primary rounded-full mt-3 shadow-[0_0_8px_rgba(255,122,112,0.5)]"></div>
                 </div>
-                <a href="https://youtube.com/@kaede_vtuber/videos" class="text-primary text-xs font-bold flex items-center gap-1 bg-primary/10 px-4 py-2 rounded-full hover:bg-primary/20 transition-all">
+                <a href="https://www.youtube.com/@kaede_vtuber/streams" class="text-primary text-xs font-bold flex items-center gap-1 bg-primary/10 px-4 py-2 rounded-full hover:bg-primary/20 transition-all">
                     VIEW ALL <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
             </div>
