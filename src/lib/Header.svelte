@@ -3,6 +3,7 @@
 
 	const links = [
 		{ name: 'プロフィール', href: '/profile' },
+		{ name: 'History', href: '/history' },
 		{ name: '推し活ガイドライン', href: '/guidelines' },
 		{ name: 'ギャラリー', href: '/gallery' },
 		{ name: 'おすすめ商品', href: '/shop' }

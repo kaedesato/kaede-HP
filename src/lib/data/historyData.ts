@@ -8,6 +8,11 @@ export interface HistoryEvent {
 
 export const historyData: HistoryEvent[] = [
   {
+    date: '2026-02-18',
+    title: 'Webサイトリニューアル',
+    description: 'SvelteKitを使用した新しいWebサイトを公開しました。',
+  },
+  {
     date: '2024-12-07',
     title: 'Vket 2024 Winterに出展',
     description: '',

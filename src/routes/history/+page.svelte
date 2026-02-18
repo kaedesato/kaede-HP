@@ -47,4 +47,10 @@
       </li>
     {/each}
   </ul>
+
+  <div class="text-center mt-12 mb-8">
+    <a href="/update-history" class="btn btn-outline btn-primary">
+      Webサイトの更新履歴はこちら
+    </a>
+  </div>
 </div>
