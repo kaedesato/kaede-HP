@@ -20,7 +20,7 @@ const config = {
 				'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com', 'https://fonts.cdnfonts.com'],
 				'img-src': ["'self'", 'https:', 'data:'],
 				'font-src': ["'self'", 'https://fonts.gstatic.com', 'https://fonts.cdnfonts.com'],
-				'connect-src': ["'self'", 'https://fonts.googleapis.com', 'https://fonts.gstatic.com', 'https://fonts.cdnfonts.com'],
+				'connect-src': ["'self'", 'https://fonts.googleapis.com', 'https://fonts.gstatic.com', 'https://fonts.cdnfonts.com', 'https://corsproxy.io', 'https://api.rss2json.com'],
 				'frame-src': ["'self'", 'https://www.youtube.com'],
 				'object-src': ["'none'"],
 				'base-uri': ["'self'"],
