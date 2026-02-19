@@ -12,7 +12,19 @@ export interface ChannelStatus {
     latestVideo: YouTubeVideo | null;
 }
 
+function isValidChannelId(channelId: string): boolean {
+    return /^[a-zA-Z0-9_-]+$/.test(channelId);
+}
+
 export async function getChannelData(channelId: string): Promise<ChannelStatus> {
+    if (!isValidChannelId(channelId)) {
+        console.warn('Invalid channel ID provided:', channelId);
+        return {
+            isLive: false,
+            latestVideo: null
+        };
+    }
+
     let scrapedData: ChannelStatus | null = null;
 
     // 1. Try to scrape the /streams page via corsproxy.io to get the latest STREAM specifically
