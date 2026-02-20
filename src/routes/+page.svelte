@@ -120,6 +120,8 @@
                     alt={latestVideo.title}
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     src={latestVideo.thumbnail}
+                    loading="lazy"
+                    decoding="async"
                 />
                 <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-all">
                     <div class="size-20 rounded-full bg-primary/90 flex items-center justify-center shadow-2xl shadow-primary/40 group-hover:scale-110 transition-transform">

@@ -88,7 +88,7 @@
     </div>
 
     <div class="flex flex-col gap-6">
-        {#each filteredPosts as post}
+        {#each filteredPosts as post, i}
             <article class="bg-bg-card border border-white/5 rounded-xl overflow-hidden shadow-xl transition-all duration-300 hover:border-primary/40">
                 <!-- Header -->
                 <div class="p-4 flex items-center justify-between">
@@ -120,7 +120,7 @@
                 <!-- Content -->
                 {#if post.type === 'image'}
                     <div class="aspect-square w-full bg-slate-900">
-                        <img alt="Main Post" class="w-full h-full object-cover" src={post.content.image}/>
+                        <img alt="Main Post" class="w-full h-full object-cover" src={post.content.image} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
                     </div>
                     <div class="p-4">
                         <div class="flex items-center gap-5 mb-4">
@@ -152,7 +152,7 @@
                     </div>
                 {:else if post.type === 'video'}
                     <div class="relative aspect-video w-full bg-slate-900 group cursor-pointer">
-                        <img alt="Video Content" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" src={post.content.thumbnail}/>
+                        <img alt="Video Content" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" src={post.content.thumbnail} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="size-16 rounded-full bg-primary/90 flex items-center justify-center text-white shadow-xl shadow-primary/30 transform group-hover:scale-110 transition-transform">
                                 <span class="material-symbols-outlined text-4xl fill-1">play_arrow</span>
@@ -173,12 +173,12 @@
                     </div>
                 {:else if post.type === 'album'}
                     <div class="grid grid-cols-2 gap-0.5 bg-bg-dark">
-                        {#each post.content.images as img, i}
-                            {#if i < 3}
-                                <img alt="Gallery {i}" class="aspect-square object-cover hover:opacity-90 transition-opacity" src={img}/>
-                            {:else if i === 3}
+                        {#each post.content.images as img, imgIndex}
+                            {#if imgIndex < 3}
+                                <img alt="Gallery {imgIndex}" class="aspect-square object-cover hover:opacity-90 transition-opacity" src={img} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
+                            {:else if imgIndex === 3}
                                 <div class="relative aspect-square cursor-pointer group">
-                                    <img alt="Gallery {i}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" src={img}/>
+                                    <img alt="Gallery {imgIndex}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" src={img} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
                                     <div class="absolute inset-0 bg-black/60 group-hover:bg-black/40 flex items-center justify-center transition-colors">
                                         <span class="text-xl font-bold text-white">+{post.content.images.length - 3}</span>
                                     </div>

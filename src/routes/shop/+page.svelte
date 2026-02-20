@@ -79,10 +79,10 @@
     </section>
 
     <section class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-20">
-        {#each products as product}
+        {#each products as product, i}
             <div class="flex flex-col rounded-2xl overflow-hidden bg-bg-card group transition-transform duration-300 hover:-translate-y-1 shadow-xl hover:shadow-primary/10 border border-white/5">
                 <div class="relative aspect-[4/5] overflow-hidden">
-                    <img alt={product.name} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={product.img}/>
+                    <img alt={product.name} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src={product.img} loading={i > 1 ? "lazy" : "eager"} decoding={i > 1 ? "async" : "auto"}/>
                     <div class="absolute top-4 left-4 {product.tagColor} text-white text-[11px] font-black px-3 py-1.5 rounded-lg shadow-xl uppercase tracking-wider">
                         {product.tag}
                     </div>
@@ -119,7 +119,7 @@
             </div>
             <div class="relative w-full">
                 <div class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 group cursor-pointer">
-                    <img alt="Video Thumbnail" class="w-full h-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgBCUKslvrmRvighW3p10pgnOZfr1e6kJpxmfnfj6_CXHDFaC9ICx3nj4oZKY6oAGbWVSflbhZYdLPNTkslFWY_qh0Fm6mc0YdOgOT_AHLIcZBUT57XdeTpQZTXdG48sIYyHaW1ifqsgkWCNzbVH1x7xVNORTx7ckUaQWgNwWFlUwlggYak5RQG2LuwX63F-FPQp6UTcAGbyOEioalFFWxZxvJWwBZVEMKIxoNW6i_xZ_xNdfQuZPsnohu2NxXwMd8nBR7tBv3QYNu"/>
+                    <img alt="Video Thumbnail" class="w-full h-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgBCUKslvrmRvighW3p10pgnOZfr1e6kJpxmfnfj6_CXHDFaC9ICx3nj4oZKY6oAGbWVSflbhZYdLPNTkslFWY_qh0Fm6mc0YdOgOT_AHLIcZBUT57XdeTpQZTXdG48sIYyHaW1ifqsgkWCNzbVH1x7xVNORTx7ckUaQWgNwWFlUwlggYak5RQG2LuwX63F-FPQp6UTcAGbyOEioalFFWxZxvJWwBZVEMKIxoNW6i_xZ_xNdfQuZPsnohu2NxXwMd8nBR7tBv3QYNu" loading="lazy" decoding="async"/>
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
                         <div class="size-20 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 scale-90 group-hover:scale-100 transition-transform">
                             <span class="material-symbols-outlined text-5xl fill-1">play_arrow</span>
