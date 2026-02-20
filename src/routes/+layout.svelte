@@ -4,8 +4,9 @@
 </script>
 
 <div class="min-h-screen bg-bg-dark text-slate-100 flex flex-col font-sans overflow-x-hidden selection:bg-primary/30">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-6 focus:py-3 focus:bg-primary focus:text-white focus:font-bold focus:rounded-lg focus:shadow-2xl focus:outline-none focus:ring-4 focus:ring-white/20 transition-all">Skip to content</a>
     <Header />
-    <main class="flex-1 w-full">
+    <main id="main-content" class="flex-1 w-full" tabindex="-1">
         <slot />
     </main>
 
