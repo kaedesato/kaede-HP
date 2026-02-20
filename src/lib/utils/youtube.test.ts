@@ -1,5 +1,37 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { getChannelData } from './youtube';
+import { getChannelData, isValidVideoId, sanitizeTitle } from './youtube';
+
+describe('isValidVideoId', () => {
+    it('should return true for valid video IDs', () => {
+        expect(isValidVideoId('abcdefghijk')).toBe(true);
+        expect(isValidVideoId('abc-_123456')).toBe(true);
+        expect(isValidVideoId('valid_ID-11')).toBe(true);
+    });
+
+    it('should return false for invalid video IDs', () => {
+        expect(isValidVideoId('abc def')).toBe(false);
+        expect(isValidVideoId('<script>')).toBe(false);
+        expect(isValidVideoId('!@#$%')).toBe(false);
+        expect(isValidVideoId('../../../etc/passwd')).toBe(false);
+        expect(isValidVideoId('" onload="alert(1)"')).toBe(false);
+    });
+});
+
+describe('sanitizeTitle', () => {
+    it('should remove HTML tags', () => {
+        expect(sanitizeTitle('Hello <b>World</b>')).toBe('Hello World');
+        expect(sanitizeTitle('<script>alert(1)</script>Title')).toBe('alert(1)Title');
+        expect(sanitizeTitle('<div>Broken</div> <br>')).toBe('Broken');
+    });
+
+    it('should return plain text as is', () => {
+        expect(sanitizeTitle('Plain Title')).toBe('Plain Title');
+    });
+
+    it('should trim whitespace', () => {
+        expect(sanitizeTitle('  Title  ')).toBe('Title');
+    });
+});
 
 describe('getChannelData', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

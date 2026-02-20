@@ -12,8 +12,21 @@ export interface ChannelStatus {
     latestVideo: YouTubeVideo | null;
 }
 
-function isValidChannelId(channelId: string): boolean {
+export function isValidChannelId(channelId: string): boolean {
     return /^[a-zA-Z0-9_-]+$/.test(channelId);
+}
+
+export function isValidVideoId(videoId: string): boolean {
+    // YouTube video IDs are typically 11 characters (base64url), but we allow a bit more flexibility
+    // to prevent injection while accommodating potential future changes.
+    // Strictly: /^[a-zA-Z0-9_-]{11}$/
+    return /^[a-zA-Z0-9_-]+$/.test(videoId);
+}
+
+export function sanitizeTitle(title: string): string {
+    // Basic sanitization to remove HTML tags.
+    // Svelte escapes output by default, but this prevents storing malicious HTML.
+    return title.replace(/<[^>]*>/g, '').trim();
 }
 
 export async function getChannelData(channelId: string): Promise<ChannelStatus> {
@@ -52,37 +65,39 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
                          // It's wrapped in richItemRenderer -> content -> videoRenderer
                          const firstItem = contents.find((c: any) => c.richItemRenderer?.content?.videoRenderer)?.richItemRenderer?.content?.videoRenderer;
 
-                         if (firstItem) {
+                         if (firstItem && firstItem.videoId) {
                              const videoId = firstItem.videoId;
-                             const title = firstItem.title?.runs[0]?.text || '';
-                             const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-                             const isLive = firstItem.thumbnailOverlays?.some((o: any) =>
-                                 o.thumbnailOverlayTimeStatusRenderer?.style === 'LIVE' ||
-                                 o.thumbnailOverlayTimeStatusRenderer?.text?.simpleText === 'LIVE'
-                             );
+                             if (isValidVideoId(videoId)) {
+                                 const rawTitle = firstItem.title?.runs[0]?.text || '';
+                                 const title = sanitizeTitle(rawTitle);
+                                 const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-                             // Try to get date.
-                             let pubDate = new Date().toISOString(); // Default to now if parsing fails
+                                 const isLive = firstItem.thumbnailOverlays?.some((o: any) =>
+                                     o.thumbnailOverlayTimeStatusRenderer?.style === 'LIVE' ||
+                                     o.thumbnailOverlayTimeStatusRenderer?.text?.simpleText === 'LIVE'
+                                 );
 
-                             if (firstItem.upcomingEventData && firstItem.upcomingEventData.startTime) {
-                                 pubDate = new Date(parseInt(firstItem.upcomingEventData.startTime) * 1000).toISOString();
-                             }
-                             // For archived streams, publishedTimeText is "Streamed X ago", which is hard to parse to exact date.
-                             // We keep the default (now) or maybe we can leave it?
-                             // The UI uses: new Date(latestVideo.pubDate).toLocaleDateString('ja-JP')
-                             // If we assume the latest stream is recent, using current date is an acceptable approximation if real date is missing.
+                                 // Try to get date.
+                                 let pubDate = new Date().toISOString(); // Default to now if parsing fails
 
-                             scrapedData = {
-                                 isLive,
-                                 latestVideo: {
-                                     title,
-                                     link: `https://www.youtube.com/watch?v=${videoId}`,
-                                     thumbnail,
-                                     pubDate,
-                                     isLive
+                                 if (firstItem.upcomingEventData && firstItem.upcomingEventData.startTime) {
+                                     pubDate = new Date(parseInt(firstItem.upcomingEventData.startTime) * 1000).toISOString();
                                  }
-                             };
+
+                                 scrapedData = {
+                                     isLive,
+                                     latestVideo: {
+                                         title,
+                                         link: `https://www.youtube.com/watch?v=${videoId}`,
+                                         thumbnail,
+                                         pubDate,
+                                         isLive
+                                     }
+                                 };
+                             } else {
+                                 console.warn('Invalid video ID found in scraped data:', videoId);
+                             }
                          }
                     }
                 }
@@ -109,14 +124,20 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
         if (rssData.items && rssData.items.length > 0) {
             const item = rssData.items[0];
             const videoId = item.guid.split(':')[2];
-            const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-            latestVideo = {
-                title: item.title,
-                link: item.link,
-                thumbnail: thumbnail,
-                pubDate: item.pubDate
-            };
+            if (videoId && isValidVideoId(videoId)) {
+                const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+                const title = sanitizeTitle(item.title || '');
+
+                latestVideo = {
+                    title: title,
+                    link: `https://www.youtube.com/watch?v=${videoId}`, // Construct link safely instead of trusting item.link
+                    thumbnail: thumbnail,
+                    pubDate: item.pubDate
+                };
+            } else {
+                 console.warn('Invalid video ID found in RSS data:', videoId);
+            }
         }
 
         return {
