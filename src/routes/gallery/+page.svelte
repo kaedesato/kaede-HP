@@ -113,7 +113,7 @@
                     {#if post.badge}
                         <span class="bg-primary/10 text-primary text-[10px] px-2.5 py-1 rounded-full font-bold border border-primary/20">{post.badge}</span>
                     {:else}
-                        <button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button>
+                        <button class="text-slate-400 hover:text-primary" aria-label="オプション"><span class="material-symbols-outlined">more_horiz</span></button>
                     {/if}
                 </div>
 
@@ -132,10 +132,10 @@
                                 <span class="material-symbols-outlined">chat_bubble</span>
                                 <span class="text-xs font-bold">{post.stats.comments}</span>
                             </button>
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors">
+                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors" aria-label="シェア">
                                 <span class="material-symbols-outlined">share</span>
                             </button>
-                            <button class="flex items-center gap-1 text-slate-300 ml-auto hover:text-primary transition-colors">
+                            <button class="flex items-center gap-1 text-slate-300 ml-auto hover:text-primary transition-colors" aria-label="ブックマーク">
                                 <span class="material-symbols-outlined">bookmark</span>
                             </button>
                         </div>
@@ -168,7 +168,7 @@
                         <div class="flex items-center gap-5">
                             <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite</span><span class="text-xs font-bold">{post.stats.likes}</span></button>
                             <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">repeat</span><span class="text-xs font-bold">{post.stats.shares}</span></button>
-                            <button class="flex items-center gap-1.5 text-slate-300 ml-auto hover:text-primary transition-colors"><span class="material-symbols-outlined">share</span></button>
+                            <button class="flex items-center gap-1.5 text-slate-300 ml-auto hover:text-primary transition-colors" aria-label="シェア"><span class="material-symbols-outlined">share</span></button>
                         </div>
                     </div>
                 {:else if post.type === 'album'}
