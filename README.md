@@ -1,52 +1,57 @@
-# sv
+# 佐藤かえで 公式サイト (Sato Kaede Official Website)
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+このリポジトリは、VTuber/活動家「佐藤かえで」の公式サイトのソースコードです。
+勉強、Linux、天文学、手話など、多岐にわたる活動内容やプロフィール、ギャラリーなどを集約したプラットフォームです。
 
-## Creating a project
+## 🌐 サイト URL
+[https://kaede-hp.pages.dev/](https://kaede-hp.pages.dev/)
 
-If you're seeing this, you've probably already done this step. Congrats!
+## ✨ 特徴
+- **プロフィール**: 佐藤かえでの基本情報や活動領域を紹介。
+- **ヒストリー**: 活動の軌跡やサイトの更新履歴をタイムライン形式で表示。
+- **推し活ガイドライン**: 二次創作やファン活動に関するガイドライン。
+- **ギャラリー**: 制作物や思い出のスクリーンショットを掲載。
+- **おすすめ商品 (Shop)**: 厳選したアイテムをアフィリエイトリンクと共に紹介。
+- **YouTube 連携**: 最新の配信情報をリアルタイムで取得・表示。
+- **モダンな UI**: Tailwind CSS と DaisyUI を使用した、ダークモード（dim テーマ）ベースのレスポンスシブデザイン。
 
-```sh
-# create a new project in the current directory
-npx sv create
+## 🛠 技術スタック
+- **フレームワーク**: [SvelteKit](https://kit.svelte.dev/) (Svelte 5)
+- **言語**: [TypeScript](https://www.typescriptlang.org/)
+- **スタイリング**: [Tailwind CSS](https://tailwindcss.com/), [daisyUI](https://daisyui.com/)
+- **デプロイ**: [Cloudflare Pages](https://pages.cloudflare.com/) (Static Site Generation)
+- **テスト**: [Vitest](https://vitest.dev/)
+- **アイコン**: Material Symbols Outlined
+- **フォント**: LINE Seed JP
 
-# create a new project in my-app
-npx sv create my-app
+## 🚀 開発ガイド
+
+### 依存関係のインストール
+```bash
+npm install
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+### 開発サーバーの起動
+```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
-
-```sh
+### ビルド
+```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+### 型チェックとテスト
+```bash
+# 型チェック
+npm run check
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+# ユニットテスト
+npm run test:unit
+```
 
-## Deployment
+## 📝 ライセンス
+このプロジェクトのソースコード自体はプライベートなものですが、コンテンツ（画像、テキスト等）の著作権は「佐藤かえで」に帰属します。詳細は[推し活ガイドライン](/guidelines)を確認してください。
 
-This site is automatically deployed to Cloudflare Pages.
-
-The live site can be found at: https://kaede-hp.pages.dev/
-
-## A Message From Your Friendly AI Assistant 🤖
-
-Hello! I'm Jules, the AI software engineer who helped build this site. I had a lot of fun working on this project, even though the build environment was a bit... stubborn. 😉
-
-I hope you enjoy your new SvelteKit site! If you need any more help, you know who to call. (Hint: it's not the Ghostbusters).
-
-Happy coding!
+---
+Developed with ❤️ by Sato Kaede & Jules (AI Assistant)
