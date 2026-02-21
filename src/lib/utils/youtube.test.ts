@@ -63,4 +63,103 @@ describe('getChannelData', () => {
 
         expect(globalThis.fetch).toHaveBeenCalled();
     });
+
+    it('should reject malicious link in RSS feed', async () => {
+        // Mock scraping failure (first fetch)
+        const mockScrapeResponse = {
+            ok: false,
+            text: async () => '',
+            json: async () => ({})
+        };
+
+        // Mock RSS success (second fetch) with malicious link
+        const mockRssResponse = {
+            ok: true,
+            json: async () => ({
+                items: [
+                    {
+                        title: 'Malicious Video',
+                        link: 'javascript:alert("XSS")',
+                        guid: 'yt:video:12345',
+                        pubDate: '2023-01-01'
+                    }
+                ]
+            })
+        };
+
+        // Chain the mocks
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (globalThis.fetch as any)
+            .mockResolvedValueOnce(mockScrapeResponse)
+            .mockResolvedValueOnce(mockRssResponse);
+
+        const channelId = 'UCOl7immiG7B_KWFfeywmRWQ';
+        const data = await getChannelData(channelId);
+
+        // Expectation: The link should be rejected, so latestVideo should be null (or sanitized)
+        if (data.latestVideo) {
+             expect(data.latestVideo.link).not.toMatch(/^javascript:/);
+             expect(data.latestVideo.link).toMatch(/^https?:\/\//);
+        } else {
+            expect(data.latestVideo).toBeNull();
+        }
+    });
+
+    it('should reject invalid videoId in scraping logic', async () => {
+        const maliciousVideoId = '"><script>alert(1)</script>';
+        const mockScrapeResponse = {
+            ok: true,
+            text: async () => `
+                var ytInitialData = ({
+                    "contents": {
+                        "twoColumnBrowseResultsRenderer": {
+                            "tabs": [{
+                                "tabRenderer": {
+                                    "selected": true,
+                                    "content": {
+                                        "richGridRenderer": {
+                                            "contents": [{
+                                                "richItemRenderer": {
+                                                    "content": {
+                                                        "videoRenderer": {
+                                                            "videoId": "${maliciousVideoId}",
+                                                            "title": { "runs": [{ "text": "Malicious Title" }] },
+                                                            "thumbnailOverlays": []
+                                                        }
+                                                    }
+                                                }
+                                            }]
+                                        }
+                                    }
+                                }
+                            }]
+                        }
+                    }
+                });
+            `
+        };
+
+        // Mock RSS failure (second fetch) - just in case it falls through
+        const mockRssResponse = {
+            ok: false,
+            json: async () => ({ items: [] })
+        };
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (globalThis.fetch as any)
+            .mockResolvedValueOnce(mockScrapeResponse)
+            .mockResolvedValueOnce(mockRssResponse);
+
+        const channelId = 'UCOl7immiG7B_KWFfeywmRWQ';
+        const data = await getChannelData(channelId);
+
+        if (data.latestVideo) {
+            // Ensure videoId is sanitized or validated before being put into link
+            expect(data.latestVideo.link).not.toContain('<script>');
+            expect(data.latestVideo.link).toMatch(/^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/);
+        } else {
+             // It should return null because we added validation for videoId
+             expect(data.latestVideo).toBeNull();
+        }
+    });
 });

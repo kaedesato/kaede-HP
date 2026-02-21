@@ -12,12 +12,16 @@ export interface ChannelStatus {
     latestVideo: YouTubeVideo | null;
 }
 
-function isValidChannelId(channelId: string): boolean {
-    return /^[a-zA-Z0-9_-]+$/.test(channelId);
+function isValidId(id: string): boolean {
+    return /^[a-zA-Z0-9_-]+$/.test(id);
+}
+
+function isValidUrl(url: string): boolean {
+    return /^https?:\/\//.test(url);
 }
 
 export async function getChannelData(channelId: string): Promise<ChannelStatus> {
-    if (!isValidChannelId(channelId)) {
+    if (!isValidId(channelId)) {
         console.warn('Invalid channel ID provided:', channelId);
         return {
             isLive: false,
@@ -52,7 +56,7 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
                          // It's wrapped in richItemRenderer -> content -> videoRenderer
                          const firstItem = contents.find((c: any) => c.richItemRenderer?.content?.videoRenderer)?.richItemRenderer?.content?.videoRenderer;
 
-                         if (firstItem) {
+                         if (firstItem && firstItem.videoId && isValidId(firstItem.videoId)) {
                              const videoId = firstItem.videoId;
                              const title = firstItem.title?.runs[0]?.text || '';
                              const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
@@ -108,15 +112,19 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
 
         if (rssData.items && rssData.items.length > 0) {
             const item = rssData.items[0];
-            const videoId = item.guid.split(':')[2];
-            const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+            const parts = item.guid.split(':');
+            const videoId = parts.length > 2 ? parts[2] : null;
 
-            latestVideo = {
-                title: item.title,
-                link: item.link,
-                thumbnail: thumbnail,
-                pubDate: item.pubDate
-            };
+            if (videoId && isValidId(videoId) && isValidUrl(item.link)) {
+                const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+
+                latestVideo = {
+                    title: item.title,
+                    link: item.link,
+                    thumbnail: thumbnail,
+                    pubDate: item.pubDate
+                };
+            }
         }
 
         return {
