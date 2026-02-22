@@ -16,6 +16,10 @@ function isValidChannelId(channelId: string): boolean {
     return /^[a-zA-Z0-9_-]+$/.test(channelId);
 }
 
+function isValidVideoId(videoId: string): boolean {
+    return /^[a-zA-Z0-9_-]+$/.test(videoId);
+}
+
 export async function getChannelData(channelId: string): Promise<ChannelStatus> {
     if (!isValidChannelId(channelId)) {
         console.warn('Invalid channel ID provided:', channelId);
@@ -54,42 +58,46 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
 
                          if (firstItem) {
                              const videoId = firstItem.videoId;
-                             const title = firstItem.title?.runs[0]?.text || '';
-                             const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-                             const isLive = firstItem.thumbnailOverlays?.some((o: any) =>
-                                 o.thumbnailOverlayTimeStatusRenderer?.style === 'LIVE' ||
-                                 o.thumbnailOverlayTimeStatusRenderer?.text?.simpleText === 'LIVE'
-                             );
+                             if (videoId && isValidVideoId(videoId)) {
+                                 const title = firstItem.title?.runs[0]?.text || '';
+                                 const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-                             // Try to get date.
-                             let pubDate = new Date().toISOString(); // Default to now if parsing fails
+                                 const isLive = firstItem.thumbnailOverlays?.some((o: any) =>
+                                     o.thumbnailOverlayTimeStatusRenderer?.style === 'LIVE' ||
+                                     o.thumbnailOverlayTimeStatusRenderer?.text?.simpleText === 'LIVE'
+                                 );
 
-                             if (firstItem.upcomingEventData && firstItem.upcomingEventData.startTime) {
-                                 pubDate = new Date(parseInt(firstItem.upcomingEventData.startTime) * 1000).toISOString();
-                             }
-                             // For archived streams, publishedTimeText is "Streamed X ago", which is hard to parse to exact date.
-                             // We keep the default (now) or maybe we can leave it?
-                             // The UI uses: new Date(latestVideo.pubDate).toLocaleDateString('ja-JP')
-                             // If we assume the latest stream is recent, using current date is an acceptable approximation if real date is missing.
+                                 // Try to get date.
+                                 let pubDate = new Date().toISOString(); // Default to now if parsing fails
 
-                             scrapedData = {
-                                 isLive,
-                                 latestVideo: {
-                                     title,
-                                     link: `https://www.youtube.com/watch?v=${videoId}`,
-                                     thumbnail,
-                                     pubDate,
-                                     isLive
+                                 if (firstItem.upcomingEventData && firstItem.upcomingEventData.startTime) {
+                                     pubDate = new Date(parseInt(firstItem.upcomingEventData.startTime) * 1000).toISOString();
                                  }
-                             };
+                                 // For archived streams, publishedTimeText is "Streamed X ago", which is hard to parse to exact date.
+                                 // We keep the default (now) or maybe we can leave it?
+                                 // The UI uses: new Date(latestVideo.pubDate).toLocaleDateString('ja-JP')
+                                 // If we assume the latest stream is recent, using current date is an acceptable approximation if real date is missing.
+
+                                 scrapedData = {
+                                     isLive,
+                                     latestVideo: {
+                                         title,
+                                         link: `https://www.youtube.com/watch?v=${videoId}`,
+                                         thumbnail,
+                                         pubDate,
+                                         isLive
+                                     }
+                                 };
+                             }
                          }
                     }
                 }
             }
         }
     } catch (e) {
-        console.warn('Failed to scrape streams page:', e);
+        // Sanitize error logging to prevent leaking sensitive info
+        console.warn('Failed to scrape streams page. Error suppressed.');
     }
 
     if (scrapedData) {
@@ -109,14 +117,17 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
         if (rssData.items && rssData.items.length > 0) {
             const item = rssData.items[0];
             const videoId = item.guid.split(':')[2];
-            const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-            latestVideo = {
-                title: item.title,
-                link: item.link,
-                thumbnail: thumbnail,
-                pubDate: item.pubDate
-            };
+            if (videoId && isValidVideoId(videoId)) {
+                const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+
+                latestVideo = {
+                    title: item.title,
+                    link: item.link,
+                    thumbnail: thumbnail,
+                    pubDate: item.pubDate
+                };
+            }
         }
 
         return {
@@ -124,7 +135,8 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
             latestVideo
         };
     } catch (error) {
-        console.error('Error fetching YouTube data:', error);
+        // Sanitize error logging
+        console.error('Error fetching YouTube data. Error suppressed.');
         return {
             isLive: false,
             latestVideo: null
