@@ -63,4 +63,52 @@ describe('getChannelData', () => {
 
         expect(globalThis.fetch).toHaveBeenCalled();
     });
+
+    it('should reject a malicious videoId from corsproxy.io', async () => {
+        const maliciousId = '../../evil.com/xss';
+        const mockJson = {
+            contents: {
+                twoColumnBrowseResultsRenderer: {
+                    tabs: [
+                        {
+                            tabRenderer: {
+                                selected: true,
+                                content: {
+                                    richGridRenderer: {
+                                        contents: [
+                                            {
+                                                richItemRenderer: {
+                                                    content: {
+                                                        videoRenderer: {
+                                                            videoId: maliciousId,
+                                                            title: { runs: [{ text: "Malicious Video" }] },
+                                                            thumbnailOverlays: []
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        };
+
+        const mockResponse = {
+            ok: true,
+            text: async () => `var ytInitialData = ${JSON.stringify(mockJson)};`,
+            json: async () => ({ items: [] })
+        };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (globalThis.fetch as any).mockResolvedValue(mockResponse);
+
+        const channelId = 'UCOl7immiG7B_KWFfeywmRWQ';
+        const result = await getChannelData(channelId);
+
+        // Expectation: malformed videoId should be rejected, resulting in no video data
+        expect(result.latestVideo).toBeNull();
+    });
 });
