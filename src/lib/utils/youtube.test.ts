@@ -63,4 +63,61 @@ describe('getChannelData', () => {
 
         expect(globalThis.fetch).toHaveBeenCalled();
     });
+
+    it('should reject invalid video ID with path traversal', async () => {
+        const maliciousVideoId = '../../evil.com/xss';
+        const maliciousJson = {
+            items: [
+                {
+                    guid: `yt:video:${maliciousVideoId}`,
+                    title: 'Malicious Video',
+                    link: `https://www.youtube.com/watch?v=${maliciousVideoId}`,
+                    pubDate: '2023-01-01T00:00:00Z'
+                }
+            ]
+        };
+
+        const mockResponse = {
+            ok: true,
+            // Simulate failure of the first scrape method to trigger RSS fallback
+            text: async () => 'invalid html',
+            json: async () => maliciousJson
+        };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (globalThis.fetch as any).mockResolvedValue(mockResponse);
+
+        const channelId = 'UCOl7immiG7B_KWFfeywmRWQ';
+        const result = await getChannelData(channelId);
+
+        // Expect the result to be null because the video ID is invalid
+        expect(result.latestVideo).toBeNull();
+    });
+
+    it('should reject invalid video ID with special characters', async () => {
+         const maliciousVideoId = 'vid<script>alert(1)</script>';
+         const maliciousJson = {
+             items: [
+                 {
+                     guid: `yt:video:${maliciousVideoId}`,
+                     title: 'XSS Video',
+                     link: `https://www.youtube.com/watch?v=${maliciousVideoId}`,
+                     pubDate: '2023-01-01T00:00:00Z'
+                 }
+             ]
+         };
+
+         const mockResponse = {
+             ok: true,
+             text: async () => 'invalid html',
+             json: async () => maliciousJson
+         };
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         (globalThis.fetch as any).mockResolvedValue(mockResponse);
+
+         const channelId = 'UCOl7immiG7B_KWFfeywmRWQ';
+         const result = await getChannelData(channelId);
+
+         // Expect the result to be null because the video ID is invalid
+         expect(result.latestVideo).toBeNull();
+    });
 });
