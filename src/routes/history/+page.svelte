@@ -39,7 +39,7 @@
           {/if}
           {#if event.youtubeId}
             <div class="my-4">
-              <YouTube id={event.youtubeId} />
+              <YouTube id={event.youtubeId} title={event.title} />
             </div>
           {/if}
         </div>
