@@ -12,12 +12,12 @@ export interface ChannelStatus {
     latestVideo: YouTubeVideo | null;
 }
 
-function isValidChannelId(channelId: string): boolean {
-    return /^[a-zA-Z0-9_-]+$/.test(channelId);
+export function isValidYoutubeId(id: string): boolean {
+    return /^[a-zA-Z0-9_-]+$/.test(id);
 }
 
 export async function getChannelData(channelId: string): Promise<ChannelStatus> {
-    if (!isValidChannelId(channelId)) {
+    if (!isValidYoutubeId(channelId)) {
         console.warn('Invalid channel ID provided:', channelId);
         return {
             isLive: false,
