@@ -1,5 +1,25 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { getChannelData } from './youtube';
+import { getChannelData, isValidYoutubeId } from './youtube';
+
+describe('isValidYoutubeId', () => {
+    it('should validate alphanumeric IDs', () => {
+        expect(isValidYoutubeId('UC1234567890')).toBe(true);
+    });
+
+    it('should validate IDs with hyphens and underscores', () => {
+        expect(isValidYoutubeId('UC-123_456')).toBe(true);
+    });
+
+    it('should reject IDs with special characters', () => {
+        expect(isValidYoutubeId('<script>')).toBe(false);
+        expect(isValidYoutubeId('test/test')).toBe(false);
+        expect(isValidYoutubeId('..')).toBe(false);
+    });
+
+    it('should reject IDs with spaces', () => {
+        expect(isValidYoutubeId('test id')).toBe(false);
+    });
+});
 
 describe('getChannelData', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
