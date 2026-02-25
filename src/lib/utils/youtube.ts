@@ -16,6 +16,41 @@ function isValidChannelId(channelId: string): boolean {
     return /^[a-zA-Z0-9_-]+$/.test(channelId);
 }
 
+function decodeHtmlEntities(text: string): string {
+    return text.replace(/&amp;/g, '&')
+               .replace(/&lt;/g, '<')
+               .replace(/&gt;/g, '>')
+               .replace(/&quot;/g, '"')
+               .replace(/&#39;/g, "'");
+}
+
+export function extractLatestVideoFromXml(xml: string): YouTubeVideo | null {
+    // Extract the first <entry> block
+    const entryMatch = xml.match(/<entry>([\s\S]*?)<\/entry>/);
+    if (!entryMatch) return null;
+
+    const entry = entryMatch[1];
+
+    // Extract fields
+    const titleMatch = entry.match(/<title>(.*?)<\/title>/);
+    const videoIdMatch = entry.match(/<yt:videoId>(.*?)<\/yt:videoId>/);
+    const publishedMatch = entry.match(/<published>(.*?)<\/published>/);
+    // Link is usually alternate
+    const linkMatch = entry.match(/<link rel="alternate" href="(.*?)"\/>/);
+
+    if (titleMatch && videoIdMatch && publishedMatch) {
+        const videoId = videoIdMatch[1];
+        return {
+            title: decodeHtmlEntities(titleMatch[1]),
+            link: linkMatch ? linkMatch[1] : `https://www.youtube.com/watch?v=${videoId}`,
+            thumbnail: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+            pubDate: publishedMatch[1],
+            isLive: false
+        };
+    }
+    return null;
+}
+
 export async function getChannelData(channelId: string): Promise<ChannelStatus> {
     if (!isValidChannelId(channelId)) {
         console.warn('Invalid channel ID provided:', channelId);
@@ -96,38 +131,27 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
         return scrapedData;
     }
 
-    // 2. Fallback to RSS feed if scraping fails
+    // 2. Fallback to RSS feed via corsproxy.io (XML parsing)
     try {
         const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-        const rssJsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+        const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`;
 
-        const rssResponse = await fetch(rssJsonUrl);
-        const rssData = await rssResponse.json();
+        const response = await fetch(proxyUrl);
+        if (response.ok) {
+            const xml = await response.text();
+            const latestVideo = extractLatestVideoFromXml(xml);
 
-        let latestVideo: YouTubeVideo | null = null;
-
-        if (rssData.items && rssData.items.length > 0) {
-            const item = rssData.items[0];
-            const videoId = item.guid.split(':')[2];
-            const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
-
-            latestVideo = {
-                title: item.title,
-                link: item.link,
-                thumbnail: thumbnail,
-                pubDate: item.pubDate
+            return {
+                isLive: false, // RSS doesn't support live status well
+                latestVideo
             };
         }
-
-        return {
-            isLive: false, // RSS doesn't support live status well
-            latestVideo
-        };
     } catch (error) {
-        console.error('Error fetching YouTube data:', error);
-        return {
-            isLive: false,
-            latestVideo: null
-        };
+        console.error('Error fetching YouTube RSS:', error);
     }
+
+    return {
+        isLive: false,
+        latestVideo: null
+    };
 }
