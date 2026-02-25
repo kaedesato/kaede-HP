@@ -59,10 +59,15 @@
         <div class="relative w-full max-w-[360px] aspect-[4/5] mb-12 group">
              <div class="absolute -inset-10 bg-cyan-glow/10 rounded-full blur-3xl opacity-30"></div>
              <div class="relative h-full w-full rounded-2xl overflow-hidden border-2 border-cyan-glow/20 bg-bg-card shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                <!-- LCP Optimization: Prioritize hero image loading with fetchpriority="high" and loading="eager" -->
                 <img
                     alt="佐藤かえで"
                     class="w-full h-full object-cover"
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq7SXNDbg_aivCqZ_Q4HhhNO1IiNO8gk5DrK7mznbc2uDppsptUeA_441eyX9S4uHgPO-pDqcWbPwKo7wGdAwu3D3qIFrKbrCZBhR4P0XjyO8orembSbHkCu-Mj4oB91C5WhR4Vb2_Wr-LLZGWYpxB1Tkr4oiFNdUb9f0VD8CH3OVeGo0qLaWtxOOCxG7vIP70V2RSuU7Pg-GCe4NGpyhNQZP1SseMqaNvWVD7Hm2gvBnki5lmhJAW0IPvJjw0RePvnNWLTTjSYo53"
+                    fetchpriority="high"
+                    loading="eager"
+                    width="720"
+                    height="900"
                 />
                 <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-bg-dark via-bg-dark/80 to-transparent">
                     <p class="text-primary font-black text-2xl tracking-[0.1em] drop-shadow-md">SATO KAEDE</p>
