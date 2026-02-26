@@ -5,3 +5,7 @@
 ## 2026-02-19 - Missing Skip to Content Link
 **Learning:** The site layout had a sticky header but no "Skip to Content" link. This forced keyboard users to tab through all navigation links on every page load to reach the main content.
 **Action:** Always implement a "Skip to Content" link in the main layout (`+layout.svelte`) as a standard practice for accessibility, ensuring the target element has `tabindex="-1"` and `id="main-content"`.
+
+## 2026-02-26 - Material Symbols Ligature Readability
+**Learning:** `material-symbols-outlined` icons are rendered using ligatures. Without `aria-hidden="true"`, screen readers will read the underlying text (e.g., "favorite"). However, adding `aria-label` to the parent button overrides *all* child content.
+**Action:** When using `aria-label` on a button to provide a label for an icon, ensure you also include any dynamic content (like counters) in the `aria-label` string itself, as the visible text inside the button will be ignored by screen readers.

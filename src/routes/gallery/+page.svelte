@@ -113,7 +113,7 @@
                     {#if post.badge}
                         <span class="bg-primary/10 text-primary text-[10px] px-2.5 py-1 rounded-full font-bold border border-primary/20">{post.badge}</span>
                     {:else}
-                        <button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button>
+                        <button class="text-slate-400 hover:text-primary" aria-label="Options"><span class="material-symbols-outlined" aria-hidden="true">more_horiz</span></button>
                     {/if}
                 </div>
 
@@ -124,19 +124,19 @@
                     </div>
                     <div class="p-4">
                         <div class="flex items-center gap-5 mb-4">
-                            <button class="flex items-center gap-1.5 text-primary">
-                                <span class="material-symbols-outlined fill-1">favorite</span>
+                            <button class="flex items-center gap-1.5 text-primary" aria-label={`Like ${post.stats.likes}`}>
+                                <span class="material-symbols-outlined fill-1" aria-hidden="true">favorite</span>
                                 <span class="text-xs font-bold">{post.stats.likes}</span>
                             </button>
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors">
-                                <span class="material-symbols-outlined">chat_bubble</span>
+                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors" aria-label={`Comment ${post.stats.comments}`}>
+                                <span class="material-symbols-outlined" aria-hidden="true">chat_bubble</span>
                                 <span class="text-xs font-bold">{post.stats.comments}</span>
                             </button>
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors">
-                                <span class="material-symbols-outlined">share</span>
+                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors" aria-label="Share">
+                                <span class="material-symbols-outlined" aria-hidden="true">share</span>
                             </button>
-                            <button class="flex items-center gap-1 text-slate-300 ml-auto hover:text-primary transition-colors">
-                                <span class="material-symbols-outlined">bookmark</span>
+                            <button class="flex items-center gap-1 text-slate-300 ml-auto hover:text-primary transition-colors" aria-label="Bookmark">
+                                <span class="material-symbols-outlined" aria-hidden="true">bookmark</span>
                             </button>
                         </div>
                         <p class="text-sm leading-relaxed mb-3 text-slate-200">
@@ -166,9 +166,9 @@
                             {post.content.desc}
                         </p>
                         <div class="flex items-center gap-5">
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite</span><span class="text-xs font-bold">{post.stats.likes}</span></button>
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">repeat</span><span class="text-xs font-bold">{post.stats.shares}</span></button>
-                            <button class="flex items-center gap-1.5 text-slate-300 ml-auto hover:text-primary transition-colors"><span class="material-symbols-outlined">share</span></button>
+                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors" aria-label={`Like ${post.stats.likes}`}><span class="material-symbols-outlined" aria-hidden="true">favorite</span><span class="text-xs font-bold">{post.stats.likes}</span></button>
+                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors" aria-label={`Repost ${post.stats.shares}`}><span class="material-symbols-outlined" aria-hidden="true">repeat</span><span class="text-xs font-bold">{post.stats.shares}</span></button>
+                            <button class="flex items-center gap-1.5 text-slate-300 ml-auto hover:text-primary transition-colors" aria-label="Share"><span class="material-symbols-outlined" aria-hidden="true">share</span></button>
                         </div>
                     </div>
                 {:else if post.type === 'album'}
