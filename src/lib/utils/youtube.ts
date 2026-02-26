@@ -12,6 +12,14 @@ export interface ChannelStatus {
     latestVideo: YouTubeVideo | null;
 }
 
+// Cache configuration
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const cache = new Map<string, { data: ChannelStatus; timestamp: number }>();
+
+export function _resetCache() {
+    cache.clear();
+}
+
 function isValidChannelId(channelId: string): boolean {
     return /^[a-zA-Z0-9_-]+$/.test(channelId);
 }
@@ -24,6 +32,17 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
             latestVideo: null
         };
     }
+
+    // Check cache
+    const cached = cache.get(channelId);
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+        return cached.data;
+    }
+
+    let result: ChannelStatus = {
+        isLive: false,
+        latestVideo: null
+    };
 
     let scrapedData: ChannelStatus | null = null;
 
@@ -93,41 +112,46 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
     }
 
     if (scrapedData) {
-        return scrapedData;
-    }
+        result = scrapedData;
+    } else {
+        // 2. Fallback to RSS feed if scraping fails
+        try {
+            const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+            const rssJsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
 
-    // 2. Fallback to RSS feed if scraping fails
-    try {
-        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-        const rssJsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+            const rssResponse = await fetch(rssJsonUrl);
+            const rssData = await rssResponse.json();
 
-        const rssResponse = await fetch(rssJsonUrl);
-        const rssData = await rssResponse.json();
+            let latestVideo: YouTubeVideo | null = null;
 
-        let latestVideo: YouTubeVideo | null = null;
+            if (rssData.items && rssData.items.length > 0) {
+                const item = rssData.items[0];
+                const videoId = item.guid.split(':')[2];
+                const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-        if (rssData.items && rssData.items.length > 0) {
-            const item = rssData.items[0];
-            const videoId = item.guid.split(':')[2];
-            const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+                latestVideo = {
+                    title: item.title,
+                    link: item.link,
+                    thumbnail: thumbnail,
+                    pubDate: item.pubDate
+                };
+            }
 
-            latestVideo = {
-                title: item.title,
-                link: item.link,
-                thumbnail: thumbnail,
-                pubDate: item.pubDate
+            result = {
+                isLive: false, // RSS doesn't support live status well
+                latestVideo
             };
+        } catch (error) {
+            console.error('Error fetching YouTube data:', error);
+            // Default empty result on error
         }
-
-        return {
-            isLive: false, // RSS doesn't support live status well
-            latestVideo
-        };
-    } catch (error) {
-        console.error('Error fetching YouTube data:', error);
-        return {
-            isLive: false,
-            latestVideo: null
-        };
     }
+
+    // Update cache
+    cache.set(channelId, {
+        data: result,
+        timestamp: Date.now()
+    });
+
+    return result;
 }
