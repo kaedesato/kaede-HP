@@ -115,7 +115,7 @@
 
 
             {#if latestVideo}
-            <a href={latestVideo.link} target="_blank" rel="noreferrer" class="block relative aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer bg-bg-card">
+            <a href={latestVideo.link} target="_blank" rel="noopener noreferrer" class="block relative aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer bg-bg-card">
                 <img
                     alt={latestVideo.title}
                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
