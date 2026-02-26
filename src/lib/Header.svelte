@@ -57,7 +57,7 @@
 				<a
 					href="https://youtube.com/@kaede_vtuber"
 					target="_blank"
-					rel="noreferrer"
+					rel="noopener noreferrer"
 					class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800 text-slate-300 border border-slate-700 hover:text-primary hover:border-primary/50 transition-all"
 					title="YouTube"
                     aria-label="YouTube Channel"
@@ -71,7 +71,7 @@
 				<a
 					href="https://discord.com"
 					target="_blank"
-					rel="noreferrer"
+					rel="noopener noreferrer"
 					class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-800 text-slate-300 border border-slate-700 hover:text-primary hover:border-primary/50 transition-all"
 					title="Discord"
                     aria-label="Discord Server"
