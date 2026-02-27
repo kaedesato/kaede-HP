@@ -78,7 +78,7 @@
                 </h3>
                 <div class="grid grid-cols-2 gap-3">
                     {#each socialLinks as link}
-                        <a href="#" class="bg-bg-card/40 backdrop-blur-md p-4 rounded-xl flex items-center gap-3 border border-white/5 hover:border-primary/50 transition-all group shadow-lg hover:shadow-primary/10">
+                        <button class="w-full text-left bg-bg-card/40 backdrop-blur-md p-4 rounded-xl flex items-center gap-3 border border-white/5 hover:border-primary/50 transition-all group shadow-lg hover:shadow-primary/10">
                             <div class="size-10 rounded-lg {link.bg} flex items-center justify-center {link.color} group-hover:text-white transition-all shrink-0">
                                 <span class="material-symbols-outlined text-xl">{link.icon}</span>
                             </div>
@@ -86,9 +86,9 @@
                                 <p class="text-[10px] text-white/40 font-bold uppercase tracking-wider">{link.name}</p>
                                 <p class="text-xs font-bold text-white truncate">{link.id}</p>
                             </div>
-                        </a>
+                        </button>
                     {/each}
-                     <a href="#" class="col-span-2 bg-bg-card/40 backdrop-blur-md p-4 rounded-xl flex items-center gap-3 border border-white/5 hover:border-primary/50 transition-all group shadow-lg hover:shadow-primary/10">
+                     <button class="w-full text-left col-span-2 bg-bg-card/40 backdrop-blur-md p-4 rounded-xl flex items-center gap-3 border border-white/5 hover:border-primary/50 transition-all group shadow-lg hover:shadow-primary/10">
                         <div class="size-10 rounded-lg bg-slate-300/10 flex items-center justify-center text-slate-300 group-hover:bg-slate-300 group-hover:text-bg-dark transition-all shrink-0">
                             <span class="material-symbols-outlined text-xl">code</span>
                         </div>
@@ -96,7 +96,7 @@
                             <p class="text-[10px] text-white/40 font-bold uppercase tracking-wider">GitHub</p>
                             <p class="text-xs font-bold text-white">Repository & Contributions</p>
                         </div>
-                    </a>
+                        </button>
                 </div>
             </section>
         </div>
