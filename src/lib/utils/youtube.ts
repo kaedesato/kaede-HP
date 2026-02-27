@@ -12,6 +12,19 @@ export interface ChannelStatus {
     latestVideo: YouTubeVideo | null;
 }
 
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+interface CacheEntry {
+    data: ChannelStatus;
+    timestamp: number;
+}
+
+let channelCache = new Map<string, CacheEntry>();
+
+export function _resetCache() {
+    channelCache.clear();
+}
+
 function isValidChannelId(channelId: string): boolean {
     return /^[a-zA-Z0-9_-]+$/.test(channelId);
 }
@@ -23,6 +36,11 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
             isLive: false,
             latestVideo: null
         };
+    }
+
+    const cached = channelCache.get(channelId);
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+        return cached.data;
     }
 
     let scrapedData: ChannelStatus | null = null;
@@ -63,10 +81,12 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
                              );
 
                              // Try to get date.
-                             let pubDate = new Date().toISOString(); // Default to now if parsing fails
+                             // We use Date explicitly to prevent issues with fake timers in vitest
+                             const D = globalThis.Date;
+                             let pubDate = new D().toISOString(); // Default to now if parsing fails
 
                              if (firstItem.upcomingEventData && firstItem.upcomingEventData.startTime) {
-                                 pubDate = new Date(parseInt(firstItem.upcomingEventData.startTime) * 1000).toISOString();
+                                 pubDate = new D(parseInt(firstItem.upcomingEventData.startTime) * 1000).toISOString();
                              }
                              // For archived streams, publishedTimeText is "Streamed X ago", which is hard to parse to exact date.
                              // We keep the default (now) or maybe we can leave it?
@@ -93,6 +113,7 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
     }
 
     if (scrapedData) {
+        channelCache.set(channelId, { data: scrapedData, timestamp: Date.now() });
         return scrapedData;
     }
 
@@ -119,10 +140,12 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
             };
         }
 
-        return {
+        const rssResult = {
             isLive: false, // RSS doesn't support live status well
             latestVideo
         };
+        channelCache.set(channelId, { data: rssResult, timestamp: Date.now() });
+        return rssResult;
     } catch (error) {
         console.error('Error fetching YouTube data:', error);
         return {
