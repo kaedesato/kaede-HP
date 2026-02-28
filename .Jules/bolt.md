@@ -1,0 +1,3 @@
+## 2024-05-24 - [Optimize gallery image iterations with slice()]
+**Learning:** In Svelte templates, `{#each}` loops iterate over the entire array even if `{#if}` blocks within limit the rendered output. This wastes computation on evaluating elements that are never rendered, especially for large arrays (like preview grids).
+**Action:** Always use `.slice()` (e.g., `array.slice(0, 4)`) directly within the `{#each}` loop definition to prevent unnecessary iterations and DOM evaluations for unrendered elements in Svelte templates.
