@@ -113,7 +113,7 @@
                     {#if post.badge}
                         <span class="bg-primary/10 text-primary text-[10px] px-2.5 py-1 rounded-full font-bold border border-primary/20">{post.badge}</span>
                     {:else}
-                        <button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined">more_horiz</span></button>
+                        <button aria-label="More options" class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined" aria-hidden="true">more_horiz</span></button>
                     {/if}
                 </div>
 
@@ -124,19 +124,19 @@
                     </div>
                     <div class="p-4">
                         <div class="flex items-center gap-5 mb-4">
-                            <button class="flex items-center gap-1.5 text-primary">
-                                <span class="material-symbols-outlined fill-1">favorite</span>
-                                <span class="text-xs font-bold">{post.stats.likes}</span>
+                            <button aria-label="Likes: {post.stats?.likes ?? 0}" class="flex items-center gap-1.5 text-primary">
+                                <span class="material-symbols-outlined fill-1" aria-hidden="true">favorite</span>
+                                <span class="text-xs font-bold">{post.stats?.likes ?? 0}</span>
                             </button>
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors">
-                                <span class="material-symbols-outlined">chat_bubble</span>
-                                <span class="text-xs font-bold">{post.stats.comments}</span>
+                            <button aria-label="Comments: {post.stats?.comments ?? 0}" class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined" aria-hidden="true">chat_bubble</span>
+                                <span class="text-xs font-bold">{post.stats?.comments ?? 0}</span>
                             </button>
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors">
-                                <span class="material-symbols-outlined">share</span>
+                            <button aria-label="Share" class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined" aria-hidden="true">share</span>
                             </button>
-                            <button class="flex items-center gap-1 text-slate-300 ml-auto hover:text-primary transition-colors">
-                                <span class="material-symbols-outlined">bookmark</span>
+                            <button aria-label="Bookmark" class="flex items-center gap-1 text-slate-300 ml-auto hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined" aria-hidden="true">bookmark</span>
                             </button>
                         </div>
                         <p class="text-sm leading-relaxed mb-3 text-slate-200">
@@ -154,9 +154,9 @@
                     <div class="relative aspect-video w-full bg-slate-900 group cursor-pointer">
                         <img alt="Video Content" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" src={post.content.thumbnail} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="size-16 rounded-full bg-primary/90 flex items-center justify-center text-white shadow-xl shadow-primary/30 transform group-hover:scale-110 transition-transform">
-                                <span class="material-symbols-outlined text-4xl fill-1">play_arrow</span>
-                            </div>
+                            <button aria-label="Play video: {post.content?.title ?? ''}" class="size-16 rounded-full bg-primary/90 flex items-center justify-center text-white shadow-xl shadow-primary/30 transform group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-4xl fill-1" aria-hidden="true">play_arrow</span>
+                            </button>
                         </div>
                         <div class="absolute bottom-3 right-3 bg-black/70 px-2 py-1 rounded text-[10px] font-bold text-white backdrop-blur-md border border-white/10">{post.content.duration}</div>
                     </div>
@@ -166,21 +166,21 @@
                             {post.content.desc}
                         </p>
                         <div class="flex items-center gap-5">
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite</span><span class="text-xs font-bold">{post.stats.likes}</span></button>
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">repeat</span><span class="text-xs font-bold">{post.stats.shares}</span></button>
-                            <button class="flex items-center gap-1.5 text-slate-300 ml-auto hover:text-primary transition-colors"><span class="material-symbols-outlined">share</span></button>
+                            <button aria-label="Likes: {post.stats?.likes ?? 0}" class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined" aria-hidden="true">favorite</span><span class="text-xs font-bold">{post.stats?.likes ?? 0}</span></button>
+                            <button aria-label="Shares: {post.stats?.shares ?? 0}" class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined" aria-hidden="true">repeat</span><span class="text-xs font-bold">{post.stats?.shares ?? 0}</span></button>
+                            <button aria-label="Share" class="flex items-center gap-1.5 text-slate-300 ml-auto hover:text-primary transition-colors"><span class="material-symbols-outlined" aria-hidden="true">share</span></button>
                         </div>
                     </div>
                 {:else if post.type === 'album'}
                     <div class="grid grid-cols-2 gap-0.5 bg-bg-dark">
-                        {#each post.content.images as img, imgIndex}
+                        {#each post.content.images ?? [] as img, imgIndex}
                             {#if imgIndex < 3}
-                                <img alt="Gallery {imgIndex}" class="aspect-square object-cover hover:opacity-90 transition-opacity" src={img} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
+                                <img alt="Gallery {imgIndex}" class="aspect-square object-cover hover:opacity-90 transition-opacity" src={String(img)} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
                             {:else if imgIndex === 3}
                                 <div class="relative aspect-square cursor-pointer group">
-                                    <img alt="Gallery {imgIndex}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" src={img} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
+                                    <img alt="Gallery {imgIndex}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" src={String(img)} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
                                     <div class="absolute inset-0 bg-black/60 group-hover:bg-black/40 flex items-center justify-center transition-colors">
-                                        <span class="text-xl font-bold text-white">+{post.content.images.length - 3}</span>
+                                        <span class="text-xl font-bold text-white">+{(post.content.images ?? []).length - 3}</span>
                                     </div>
                                 </div>
                             {/if}
@@ -190,7 +190,7 @@
                         <p class="text-sm mb-4 text-slate-200">{post.content.text}</p>
                         <button class="w-full py-3 bg-primary/10 border border-primary/30 rounded-lg text-xs font-bold text-primary hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
                             <span>アルバムのすべての写真を見る</span>
-                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+                            <span class="material-symbols-outlined text-sm" aria-hidden="true">open_in_new</span>
                         </button>
                     </div>
                 {/if}
@@ -206,10 +206,10 @@
 
     <!-- Load More -->
     <div class="mt-12 flex flex-col items-center gap-4">
-        <button class="group flex flex-col items-center gap-3">
+        <button aria-label="Load more posts" class="group flex flex-col items-center gap-3">
             <p class="text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] group-hover:text-primary transition-colors">もっと読み込む</p>
             <div class="size-12 flex items-center justify-center bg-slate-800 border border-slate-700 rounded-full text-primary shadow-lg shadow-primary/30 group-hover:bg-slate-700 transition-all transform group-hover:translate-y-1">
-                <span class="material-symbols-outlined">expand_more</span>
+                <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
             </div>
         </button>
     </div>
