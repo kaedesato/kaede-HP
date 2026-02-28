@@ -22,7 +22,7 @@ export const load: PageServerLoad = async () => {
 				console.error(`Error fetching OGP for ${url}:`, error);
 				return {
 					ogTitle: '取得エラー',
-					ogDescription: `OGP情報の取得中にエラーが発生しました: ${error.message}`,
+					ogDescription: `OGP情報の取得中にエラーが発生しました。`,
 					requestUrl: url,
 					success: false
 				};
