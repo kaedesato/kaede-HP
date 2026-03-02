@@ -1,0 +1,4 @@
+## 2024-05-24 - [Tabnabbing via target="_blank"]
+**Vulnerability:** External links opened in a new tab (`target="_blank"`) using `rel="noreferrer"` but missing `noopener` could allow tabnabbing attacks if combined with certain browser contexts or legacy handling, although modern browsers increasingly default to `noopener`.
+**Learning:** The `target="_blank"` pattern was enforced but partially incomplete for older browser security compatibility and strict defense-in-depth where explicit `rel="noopener noreferrer"` should be required across the application for external links.
+**Prevention:** Always use `rel="noopener noreferrer"` when using `target="_blank"` for external links, and establish linter rules (like `eslint-plugin-svelte` a11y checks or similar) if possible to prevent this omission in the future.
