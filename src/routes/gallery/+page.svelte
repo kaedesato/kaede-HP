@@ -126,11 +126,11 @@
                         <div class="flex items-center gap-5 mb-4">
                             <button class="flex items-center gap-1.5 text-primary">
                                 <span class="material-symbols-outlined fill-1">favorite</span>
-                                <span class="text-xs font-bold">{post.stats.likes}</span>
+                                <span class="text-xs font-bold">{post.stats?.likes ?? 0}</span>
                             </button>
                             <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors">
                                 <span class="material-symbols-outlined">chat_bubble</span>
-                                <span class="text-xs font-bold">{post.stats.comments}</span>
+                                <span class="text-xs font-bold">{post.stats?.comments ?? 0}</span>
                             </button>
                             <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors">
                                 <span class="material-symbols-outlined">share</span>
@@ -166,21 +166,21 @@
                             {post.content.desc}
                         </p>
                         <div class="flex items-center gap-5">
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite</span><span class="text-xs font-bold">{post.stats.likes}</span></button>
-                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">repeat</span><span class="text-xs font-bold">{post.stats.shares}</span></button>
+                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite</span><span class="text-xs font-bold">{post.stats?.likes ?? 0}</span></button>
+                            <button class="flex items-center gap-1.5 text-slate-300 hover:text-primary transition-colors"><span class="material-symbols-outlined">repeat</span><span class="text-xs font-bold">{post.stats?.shares ?? 0}</span></button>
                             <button class="flex items-center gap-1.5 text-slate-300 ml-auto hover:text-primary transition-colors"><span class="material-symbols-outlined">share</span></button>
                         </div>
                     </div>
                 {:else if post.type === 'album'}
                     <div class="grid grid-cols-2 gap-0.5 bg-bg-dark">
-                        {#each post.content.images as img, imgIndex}
+                        {#each post.content.images ?? [] as img, imgIndex}
                             {#if imgIndex < 3}
-                                <img alt="Gallery {imgIndex}" class="aspect-square object-cover hover:opacity-90 transition-opacity" src={img} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
+                                <img alt="Gallery {imgIndex}" class="aspect-square object-cover hover:opacity-90 transition-opacity" src={String(img)} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
                             {:else if imgIndex === 3}
                                 <div class="relative aspect-square cursor-pointer group">
-                                    <img alt="Gallery {imgIndex}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" src={img} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
+                                    <img alt="Gallery {imgIndex}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" src={String(img)} loading={i > 0 ? "lazy" : "eager"} decoding={i > 0 ? "async" : "auto"}/>
                                     <div class="absolute inset-0 bg-black/60 group-hover:bg-black/40 flex items-center justify-center transition-colors">
-                                        <span class="text-xl font-bold text-white">+{post.content.images.length - 3}</span>
+                                        <span class="text-xl font-bold text-white">+{(post.content.images ?? []).length - 3}</span>
                                     </div>
                                 </div>
                             {/if}
