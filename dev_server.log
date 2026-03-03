@@ -1,0 +1,61 @@
+
+> my-app@0.0.1 dev /app
+> npx vite dev
+
+npm warn Unknown env config "verify-deps-before-run". This will stop working in the next major version of npm.
+npm warn Unknown env config "npm-globalconfig". This will stop working in the next major version of npm.
+npm warn Unknown env config "_jsr-registry". This will stop working in the next major version of npm.
+8:36:25 PM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v7.3.1  ready in 1760 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+
+🌼   daisyUI 4.12.24
+├─ ✔︎ 2 themes added		https://daisyui.com/docs/themes
+╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
+
+
+🌼   daisyUI 4.12.24
+├─ ✔︎ 2 themes added		https://daisyui.com/docs/themes
+╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
+
+8:43:50 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+8:43:50 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+8:43:50 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+8:43:50 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+8:43:50 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+8:43:50 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+8:43:50 PM [vite] (client) page reload .svelte-kit/generated/root.js
+8:43:50 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+8:43:51 PM [vite] (ssr) page reload .svelte-kit/generated/root.svelte
+8:44:00 PM [vite] (client) page reload build/coming-soon.html
+8:44:00 PM [vite] (client) page reload build/gallery.html
+8:44:00 PM [vite] (client) page reload build/history.html
+8:44:00 PM [vite] (client) page reload build/guidelines.html
+8:44:00 PM [vite] (client) page reload build/index.html
+8:44:00 PM [vite] (client) page reload build/profile.html
+8:44:00 PM [vite] (client) page reload build/recommend.html
+8:44:00 PM [vite] (client) page reload build/shop.html
+8:44:00 PM [vite] (client) page reload build/update-history.html
+8:45:11 PM [vite] (client) hmr update /src/app.css
+8:45:11 PM [vite] (ssr) page reload src/routes/profile/+page.svelte
+8:45:23 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+8:45:23 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+8:45:23 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+8:45:23 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+8:45:23 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+8:45:23 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+8:45:23 PM [vite] (client) page reload .svelte-kit/generated/root.js
+8:45:23 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+8:45:23 PM [vite] (ssr) page reload .svelte-kit/generated/root.svelte
+8:45:30 PM [vite] (client) page reload build/coming-soon.html
+8:45:30 PM [vite] (client) page reload build/gallery.html
+8:45:30 PM [vite] (client) page reload build/guidelines.html
+8:45:30 PM [vite] (client) page reload build/history.html
+8:45:30 PM [vite] (client) page reload build/index.html
+8:45:30 PM [vite] (client) page reload build/profile.html
+8:45:30 PM [vite] (client) page reload build/recommend.html
+8:45:30 PM [vite] (client) page reload build/shop.html
+8:45:30 PM [vite] (client) page reload build/update-history.html
