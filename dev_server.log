@@ -1,0 +1,31 @@
+
+> my-app@0.0.1 dev /app
+> astro dev
+
+02:54:55 [types] Generated 1ms
+
+ astro  v4.16.19 ready in 505 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+02:54:55 watching for file changes...
+
+ update  ▶ New version of Astro available: 6.1.3
+  Run npx @astrojs/upgrade to update
+
+
+🌼   daisyUI 4.12.24
+├─ ✔︎ 2 themes added		https://daisyui.com/docs/themes
+╰─ ❤︎ Support daisyUI project:	https://opencollective.com/daisyui
+
+
+🌼   daisyUI 4.12.24
+├─ ✔︎ 2 themes added		https://daisyui.com/docs/themes
+╰─ ★ Star daisyUI on GitHub	https://github.com/saadeghi/daisyui
+
+02:58:48 [200] /gallery 29ms
+03:05:16 [watch] src/app.html
+03:06:22 [watch] src/layouts/Layout.astro
+03:07:14 [watch] src/app.html
+03:08:10 [200] /gallery 14ms
