@@ -99,12 +99,13 @@ export async function getChannelData(channelId: string): Promise<ChannelStatus> 
                             const title = firstItem.title?.runs?.[0]?.text || '';
                             const thumbnail = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
-                            const isLive = firstItem.thumbnailOverlays?.some(
-                                (o) =>
-                                    o.thumbnailOverlayTimeStatusRenderer?.style === 'LIVE' ||
-                                    o.thumbnailOverlayTimeStatusRenderer?.text?.simpleText ===
-                                        'LIVE'
-                            );
+                            const isLive =
+                                firstItem.thumbnailOverlays?.some(
+                                    (o) =>
+                                        o.thumbnailOverlayTimeStatusRenderer?.style === 'LIVE' ||
+                                        o.thumbnailOverlayTimeStatusRenderer?.text?.simpleText ===
+                                            'LIVE'
+                                ) ?? false;
 
                             // Try to get date.
                             let pubDate = new Date().toISOString(); // Default to now if parsing fails
