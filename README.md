@@ -16,7 +16,7 @@
 - **モダンな UI**: Tailwind CSS と DaisyUI を使用した、ダークモード（dim テーマ）ベースのレスポンスシブデザイン。
 
 ## 🛠 技術スタック
-- **フレームワーク**: [SvelteKit](https://kit.svelte.dev/) (Svelte 5)
+- **フレームワーク**: [Astro](https://astro.build/)
 - **言語**: [TypeScript](https://www.typescriptlang.org/)
 - **スタイリング**: [Tailwind CSS](https://tailwindcss.com/), [daisyUI](https://daisyui.com/)
 - **デプロイ**: [Cloudflare Pages](https://pages.cloudflare.com/) (Static Site Generation)
