@@ -4,14 +4,13 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:svelte/recommended',
+    'plugin:astro/recommended',
     'prettier'
   ],
   plugins: ['@typescript-eslint'],
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 2021,
-    extraFileExtensions: ['.svelte']
+    ecmaVersion: 2021
   },
   env: {
     browser: true,
@@ -20,10 +19,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.svelte'],
-      parser: 'svelte-eslint-parser',
+      files: ['*.astro'],
+      parser: 'astro-eslint-parser',
       parserOptions: {
-        parser: '@typescript-eslint/parser'
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.astro']
       }
     }
   ]
