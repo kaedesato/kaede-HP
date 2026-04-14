@@ -49,6 +49,13 @@ describe('getChannelData', () => {
         expect(globalThis.fetch).not.toHaveBeenCalled();
     });
 
+    it('should reject empty channel ID', async () => {
+        const result = await getChannelData('');
+
+        expect(result).toEqual({ isLive: false, latestVideo: null });
+        expect(globalThis.fetch).not.toHaveBeenCalled();
+    });
+
     it('should allow valid channel ID with hyphen and underscore', async () => {
         const mockResponse = {
             ok: true,
