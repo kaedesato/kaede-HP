@@ -1,0 +1,236 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const tabs = ['すべて', '公式イラスト', 'ファンアート', '動画アーカイブ'];
+
+const posts = [
+    {
+        id: 1,
+        type: 'image',
+        category: '公式イラスト',
+        author: {
+            name: '佐藤かえで',
+            handle: '@kaede_official',
+            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmkN9FZ8_j6VmdRbVuP_Km3X3XApzRisE2RA5esTA5le8PxDHLPA45JsvIcdgpjtFqoarKEDPutp4BrfKQz359S4pS6eYmd3gGy1R43VSTWRLuMsjUnUItVJEB09CctURpaVtimI6udHT2LRTfsEVZovOPLw5ZFmRKE5Nt8WTqX8_Z-hTIFCD0wLHg1D4h9gIvvb2Df1lpDkjrS9VJUxxD9IyfHNTDJWIQdR73HmEXtXrU-osVwhgmoHt8lLenUAoGcRXJ-nEdnxg0',
+            verified: true,
+            time: '2時間前'
+        },
+        content: {
+            text: 'ミッドナイト・レゾナンスのメイン衣装がついに公開されました！🌙✨ 今回のデザインは星空をイメージしています。',
+            image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmkN9FZ8_j6VmdRbVuP_Km3X3XApzRisE2RA5esTA5le8PxDHLPA45JsvIcdgpjtFqoarKEDPutp4BrfKQz359S4pS6eYmd3gGy1R43VSTWRLuMsjUnUItVJEB09CctURpaVtimI6udHT2LRTfsEVZovOPLw5ZFmRKE5Nt8WTqX8_Z-hTIFCD0wLHg1D4h9gIvvb2Df1lpDkjrS9VJUxxD9IyfHNTDJWIQdR73HmEXtXrU-osVwhgmoHt8lLenUAoGcRXJ-nEdnxg0',
+            tags: ['#佐藤かえで', '#VTuber', '#新衣装']
+        },
+        stats: { likes: '1.2k', comments: '84' }
+    },
+    {
+        id: 2,
+        type: 'video',
+        category: 'ファンアート',
+        badge: 'FAN ART',
+        author: {
+            name: 'カエデ応援団',
+            handle: '@fan_artist_01',
+            time: '5時間前',
+            avatar: null // Use default icon
+        },
+        content: {
+            title: '【切り抜き】3Dデビューで感極まって泣いちゃうカエデ様',
+            desc: '最高に感動したシーンをまとめました。これからもずっと応援し続けます！',
+            thumbnail: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA5nkm7Ue4F89hA1CC3MiwCxvuDVioq4GLpDGx7K6TZCsvEzAEXrSN3W7YgVAHkctMoIQS9trSKOjZF3e71eGVRlJE3dRn60CDWAJ8KCozCPFucAyf1PKRbK7qRtKVscAkIcdR6BdRSJMge3uy1eZ54Jgb_tl6IiCQfEATxGun1BrgtG-woymh-J2F7k4b9bYqqB1s9ApGYZKtT1mt_0HX1VrAlccI1_f2qu3qBbMVx3MsTl-q2qfhGqs7uyXsoh-CvV0BL7igG_omI',
+            duration: '03:45'
+        },
+        stats: { likes: '856', shares: '120' }
+    },
+    {
+        id: 3,
+        type: 'album',
+        category: '公式イラスト',
+        author: {
+            name: '佐藤かえで',
+            handle: '@kaede_official',
+            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmkN9FZ8_j6VmdRbVuP_Km3X3XApzRisE2RA5esTA5le8PxDHLPA45JsvIcdgpjtFqoarKEDPutp4BrfKQz359S4pS6eYmd3gGy1R43VSTWRLuMsjUnUItVJEB09CctURpaVtimI6udHT2LRTfsEVZovOPLw5ZFmRKE5Nt8WTqX8_Z-hTIFCD0wLHg1D4h9gIvvb2Df1lpDkjrS9VJUxxD9IyfHNTDJWIQdR73HmEXtXrU-osVwhgmoHt8lLenUAoGcRXJ-nEdnxg0',
+            verified: true,
+            time: '1日前'
+        },
+        content: {
+            text: '夏の思い出🎐',
+            images: [
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuCmkN9FZ8_j6VmdRbVuP_Km3X3XApzRisE2RA5esTA5le8PxDHLPA45JsvIcdgpjtFqoarKEDPutp4BrfKQz359S4pS6eYmd3gGy1R43VSTWRLuMsjUnUItVJEB09CctURpaVtimI6udHT2LRTfsEVZovOPLw5ZFmRKE5Nt8WTqX8_Z-hTIFCD0wLHg1D4h9gIvvb2Df1lpDkjrS9VJUxxD9IyfHNTDJWIQdR73HmEXtXrU-osVwhgmoHt8lLenUAoGcRXJ-nEdnxg0',
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuBq7SXNDbg_aivCqZ_Q4HhhNO1IiNO8gk5DrK7mznbc2uDppsptUeA_441eyX9S4uHgPO-pDqcWbPwKo7wGdAwu3D3qIFrKbrCZBhR4P0XjyO8orembSbHkCu-Mj4oB91C5WhR4Vb2_Wr-LLZGWYpxB1Tkr4oiFNdUb9f0VD8CH3OVeGo0qLaWtxOOCxG7vIP70V2RSuU7Pg-GCe4NGpyhNQZP1SseMqaNvWVD7Hm2gvBnki5lmhJAW0IPvJjw0RePvnNWLTTjSYo53',
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuAI982NoQgZl_OiA0bhhkzl9rEpTgJ-QyMeLY59omkRP-MvqwtUn1cBxGsrX5VY_DybSXtXkq_OX8HmQF2LBw5d49DQ8B56fIaQeYoe9ESuJmi6kg2Pc0e-8cWD4bmrgWImkRC95a7EYs126WSxKCS0mOzv8b7xID8z2TAsxAZO2B1nsdQ4n8T6tdGmAEiI90qpAPcIARmxQeTNAfv40-Av4dAeXZm2AGE8PjRgMtqkXFOpMUi14vnDcshxjKnzpGBq9apbS5NjSBbf'
+            ]
+        },
+        stats: { likes: '3.4k', comments: '120' }
+    }
+];
+---
+
+<Layout title="佐藤かえで | ギャラリー">
+  <div class="max-w-2xl mx-auto px-4 py-8">
+      <!-- Filters -->
+      <div class="mb-8">
+          <div class="flex overflow-x-auto pb-4 gap-3 scrollbar-hide" role="tablist" aria-label="ギャラリーのフィルター">
+              {tabs.map((tab) => (
+                  <button
+                      class={`tab-btn whitespace-nowrap px-6 py-2 rounded-full text-xs font-bold transition-all ${tab === 'すべて' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 hover:border-primary/50'}`}
+                      data-tab={tab}
+                      role="tab"
+                      aria-selected={tab === 'すべて' ? 'true' : 'false'}
+                  >
+                      {tab}
+                  </button>
+              ))}
+          </div>
+      </div>
+
+      <div class="flex flex-col gap-6" id="post-container">
+          {posts.map((post) => (
+              <article class="post-card bg-bg-card border border-white/5 rounded-xl overflow-hidden shadow-xl transition-all duration-300 hover:border-primary/40" data-category={post.category}>
+                  <!-- Header -->
+                  <div class="p-4 flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                          <div class="size-10 rounded-full border border-slate-600 bg-slate-700 flex items-center justify-center overflow-hidden">
+                              {post.author.avatar ? (
+                                  <img alt="Avatar" class="w-full h-full object-cover" src={post.author.avatar}/>
+                              ) : (
+                                  <span class="material-symbols-outlined text-slate-400">person</span>
+                              )}
+                          </div>
+                          <div>
+                              <div class="flex items-center gap-1">
+                                  <span class="text-sm font-bold text-white">{post.author.name}</span>
+                                  {post.author.verified && (
+                                      <span class="material-symbols-outlined text-primary text-[14px] fill-1">verified</span>
+                                  )}
+                              </div>
+                              <span class="text-[10px] text-slate-400">{post.author.handle} • {post.author.time}</span>
+                          </div>
+                      </div>
+                      {post.badge ? (
+                          <span class="bg-primary/10 text-primary text-[10px] px-2.5 py-1 rounded-full font-bold border border-primary/20">{post.badge}</span>
+                      ) : (
+                          <button class="text-slate-400 hover:text-primary" aria-label="More options"><span class="material-symbols-outlined" aria-hidden="true">more_horiz</span></button>
+                      )}
+                  </div>
+
+                  <!-- Content -->
+                  {post.type === 'image' && (
+                      <div class="px-4 pb-3">
+                          {post.content.text && <p class="text-sm text-slate-200 mb-3 leading-relaxed">{post.content.text}</p>}
+                          {post.content.tags && (
+                              <div class="flex flex-wrap gap-2 mb-3">
+                                  {post.content.tags.map(tag => (
+                                      <span class="text-primary text-xs font-bold hover:underline cursor-pointer">{tag}</span>
+                                  ))}
+                              </div>
+                          )}
+                          <div class="relative rounded-xl overflow-hidden border border-white/10 bg-black max-h-[500px] flex items-center justify-center cursor-pointer group">
+                              <img alt="Post content" class="max-w-full max-h-[500px] object-contain transition-transform duration-500 group-hover:scale-105" src={post.content.image}/>
+                          </div>
+                      </div>
+                  )}
+
+                  {post.type === 'video' && (
+                      <div class="px-4 pb-3">
+                          <div class="relative rounded-xl overflow-hidden border border-white/10 bg-black aspect-video group cursor-pointer mb-3">
+                              <img alt={post.content.title} class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" src={post.content.thumbnail}/>
+                              <div class="absolute inset-0 flex items-center justify-center">
+                                  <div class="size-14 rounded-full bg-primary/90 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                                      <span class="material-symbols-outlined text-4xl fill-1 text-white">play_arrow</span>
+                                  </div>
+                              </div>
+                              <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-bold px-2 py-1 rounded">{post.content.duration}</span>
+                          </div>
+                          <h4 class="font-bold text-white text-sm mb-1 line-clamp-2">{post.content.title}</h4>
+                          <p class="text-xs text-slate-400 line-clamp-2">{post.content.desc}</p>
+                      </div>
+                  )}
+
+                  {post.type === 'album' && (
+                       <div class="px-4 pb-3">
+                          <p class="text-sm text-slate-200 mb-3">{post.content.text}</p>
+                          <div class="grid grid-cols-2 gap-1 rounded-xl overflow-hidden border border-white/10">
+                              {post.content.images && post.content.images.slice(0,4).map((img, index) => (
+                                   <div class="relative aspect-square cursor-pointer group">
+                                       <img alt="Album item" class="w-full h-full object-cover group-hover:scale-105 transition-transform" src={img} />
+                                       {index === 3 && (post.content.images ?? []).length > 4 && (
+                                           <div class="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-sm">
+                                               <span class="text-white font-bold text-xl">+{(post.content.images ?? []).length - 4}</span>
+                                           </div>
+                                       )}
+                                   </div>
+                              ))}
+                          </div>
+                      </div>
+                  )}
+
+                  <!-- Actions -->
+                  <div class="px-4 py-3 border-t border-white/5 flex items-center justify-between">
+                      <div class="flex items-center gap-6">
+                          <button class="flex items-center gap-2 text-slate-400 hover:text-primary transition-colors group" aria-label={`Like, ${post.stats?.likes ?? 0} likes`}>
+                              <span class="material-symbols-outlined text-lg group-hover:fill-1" aria-hidden="true">favorite</span>
+                              <span class="text-xs font-bold">{post.stats?.likes ?? 0}</span>
+                          </button>
+                           <button class="flex items-center gap-2 text-slate-400 hover:text-cyan-glow transition-colors" aria-label={`Comment, ${post.stats?.comments ?? 0} comments`}>
+                              <span class="material-symbols-outlined text-lg" aria-hidden="true">chat_bubble</span>
+                              <span class="text-xs font-bold">{post.stats?.comments ?? 0}</span>
+                          </button>
+                          <button class="flex items-center gap-2 text-slate-400 hover:text-emerald-400 transition-colors" aria-label="Share">
+                              <span class="material-symbols-outlined text-lg" aria-hidden="true">share</span>
+                          </button>
+                      </div>
+                      <button class="text-slate-400 hover:text-white" aria-label="Bookmark">
+                          <span class="material-symbols-outlined text-lg" aria-hidden="true">bookmark</span>
+                      </button>
+                  </div>
+              </article>
+          ))}
+
+          <div id="empty-state" class="hidden text-center py-20 text-slate-500 font-bold">
+              このカテゴリーにはまだ投稿がありません。
+          </div>
+      </div>
+  </div>
+</Layout>
+
+<script>
+  const tabs = document.querySelectorAll('.tab-btn');
+  const posts = document.querySelectorAll('.post-card');
+  const emptyState = document.getElementById('empty-state');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const selectedTab = tab.getAttribute('data-tab');
+
+      // Update active tab styling
+      tabs.forEach(t => {
+        t.setAttribute('aria-selected', 'false');
+        t.className = 'tab-btn whitespace-nowrap px-6 py-2 rounded-full text-xs font-bold transition-all bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 hover:border-primary/50';
+      });
+
+      tab.setAttribute('aria-selected', 'true');
+      tab.className = 'tab-btn whitespace-nowrap px-6 py-2 rounded-full text-xs font-bold transition-all bg-primary text-white shadow-lg shadow-primary/20';
+
+      // Filter posts
+      let visibleCount = 0;
+      posts.forEach(post => {
+        const category = post.getAttribute('data-category');
+        if (selectedTab === 'すべて' || category === selectedTab) {
+          (post as HTMLElement).style.display = 'block';
+          visibleCount++;
+        } else {
+          (post as HTMLElement).style.display = 'none';
+        }
+      });
+
+      // Show empty state if no posts
+      if (emptyState) {
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+        }
+      }
+    });
+  });
+</script>

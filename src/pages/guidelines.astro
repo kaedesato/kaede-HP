@@ -1,0 +1,149 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="佐藤かえで | 推し活ガイドライン">
+  <div class="max-w-5xl mx-auto px-6 py-16">
+      <!-- Hero -->
+      <section class="relative overflow-hidden rounded-3xl mb-20 aspect-[21/9] flex items-center justify-center border border-white/10 bg-bg-card">
+          <div class="absolute inset-0 z-0">
+               <!-- Using a placeholder pattern or gradient since the specific image might not be available or look good without the specific asset -->
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,122,112,0.2)_0%,rgba(15,23,42,1)_100%)]"></div>
+               <!-- Attempt to use the image from reference if possible -->
+              <img alt="Hero Background" class="w-full h-full object-cover opacity-30 brightness-75 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI982NoQgZl_OiA0bhhkzl9rEpTgJ-QyMeLY59omkRP-MvqwtUn1cBxGsrX5VY_DybSXtXkq_OX8HmQF2LBw5d49DQ8B56fIaQeYoe9ESuJmi6kg2Pc0e-8cWD4bmrgWImkRC95a7EYs126WSxKCS0mOzv8b7xID8z2TAsxAZO2B1nsdQ4n8T6tdGmAEiI90qpAPcIARmxQeTNAfv40-Av4dAeXZm2AGE8PjRgMtqkXFOpMUi14vnDcshxjKnzpGBq9apbS5NjSBbf"/>
+          </div>
+
+          <div class="relative z-10 text-center px-6">
+              <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary text-[10px] font-black rounded-full mb-6 border border-primary/20 uppercase tracking-[0.2em]">
+                  Official Content Guidelines
+              </div>
+              <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tighter text-white">
+                  推し活ガイドライン
+              </h1>
+              <p class="text-slate-300 max-w-2xl mx-auto text-sm md:text-lg leading-relaxed font-medium">
+                  佐藤かえでを応援してくださる皆様へ。<br class="hidden sm:block"/>創作活動やSNSでの交流をより楽しく、安心して行っていただけるようルールを定めました。
+              </p>
+              <div class="mt-8 flex items-center justify-center gap-2 text-xs text-slate-500 font-bold uppercase tracking-wider">
+                  <span class="material-symbols-outlined text-sm">update</span>
+                  Last Updated: 2024.03.20
+              </div>
+          </div>
+      </section>
+
+      <div class="grid gap-20">
+          <!-- Fan Art -->
+          <section id="fanart">
+              <div class="flex items-center gap-5 mb-10">
+                  <div class="size-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 flex items-center justify-center">
+                      <span class="material-symbols-outlined text-primary text-3xl font-light">palette</span>
+                  </div>
+                  <div>
+                      <h2 class="text-3xl font-black tracking-tight text-white">ファンアートについて</h2>
+                      <p class="text-slate-400 text-sm font-medium">皆様の素敵な創作活動を応援しています。</p>
+                  </div>
+              </div>
+              <div class="grid md:grid-cols-2 gap-8">
+                  <!-- Do -->
+                  <div class="p-8 rounded-3xl border border-emerald-500/20 bg-emerald-500/5 backdrop-blur-sm relative overflow-hidden group">
+                      <div class="flex items-center gap-3 mb-8">
+                          <div class="bg-emerald-500/20 text-emerald-400 p-1.5 rounded-lg">
+                              <span class="material-symbols-outlined text-2xl">check_circle</span>
+                          </div>
+                          <h3 class="text-emerald-400 font-bold text-xl tracking-wide">歓迎すること</h3>
+                      </div>
+                      <ul class="space-y-5 text-sm text-slate-300 font-medium">
+                          <li class="flex gap-4">
+                              <span class="material-symbols-outlined text-emerald-500/50 text-base shrink-0">arrow_right</span>
+                              SNSでのイラスト公開・共有
+                          </li>
+                          <li class="flex gap-4">
+                              <span class="material-symbols-outlined text-emerald-500/50 text-base shrink-0">arrow_right</span>
+                              非営利目的の同人誌、グッズ制作
+                          </li>
+                          <li class="flex gap-4">
+                              <span class="material-symbols-outlined text-emerald-500/50 text-base shrink-0">arrow_right</span>
+                              ファンアートタグ「#かえであーと」の使用
+                          </li>
+                          <li class="flex gap-4">
+                              <span class="material-symbols-outlined text-emerald-500/50 text-base shrink-0">arrow_right</span>
+                              衣装の独自アレンジやパロディ
+                          </li>
+                      </ul>
+                  </div>
+
+                  <!-- Don't -->
+                  <div class="p-8 rounded-3xl border border-red-500/20 bg-red-500/5 backdrop-blur-sm relative overflow-hidden">
+                      <div class="flex items-center gap-3 mb-8">
+                          <div class="bg-red-500/20 text-red-400 p-1.5 rounded-lg">
+                              <span class="material-symbols-outlined text-2xl">cancel</span>
+                          </div>
+                          <h3 class="text-red-400 font-bold text-xl tracking-wide">禁止事項</h3>
+                      </div>
+                      <ul class="space-y-5 text-sm text-slate-300 font-medium">
+                          <li class="flex gap-4">
+                              <span class="material-symbols-outlined text-red-500/50 text-base shrink-0">arrow_right</span>
+                              公式と誤認される可能性のあるデザイン
+                          </li>
+                          <li class="flex gap-4">
+                              <span class="material-symbols-outlined text-red-500/50 text-base shrink-0">arrow_right</span>
+                              営利目的・商用での利用（有償依頼含む）
+                          </li>
+                          <li class="flex gap-4">
+                              <span class="material-symbols-outlined text-red-500/50 text-base shrink-0">arrow_right</span>
+                              公序良俗に反する内容、政治的・宗教的な主張を含むもの
+                          </li>
+                          <li class="flex gap-4">
+                              <span class="material-symbols-outlined text-red-500/50 text-base shrink-0">arrow_right</span>
+                              他者の権利を侵害する恐れのある作品
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </section>
+
+          <!-- Streaming -->
+          <section id="streaming">
+               <div class="flex items-center gap-5 mb-10">
+                  <div class="size-14 rounded-2xl bg-gradient-to-br from-cyan-glow/20 to-cyan-glow/5 border border-cyan-glow/30 flex items-center justify-center">
+                      <span class="material-symbols-outlined text-cyan-glow text-3xl font-light">movie_edit</span>
+                  </div>
+                  <div>
+                      <h2 class="text-3xl font-black tracking-tight text-white">切り抜き動画について</h2>
+                      <p class="text-slate-400 text-sm font-medium">配信の魅力拡散にいつも感謝しております。</p>
+                  </div>
+              </div>
+
+               <div class="bg-bg-card/40 border border-white/5 rounded-3xl p-8 md:p-10 space-y-8 backdrop-blur-sm">
+                  <div class="flex items-start gap-4 p-5 rounded-2xl bg-yellow-500/10 border border-yellow-500/20">
+                      <span class="material-symbols-outlined text-yellow-500">info</span>
+                      <p class="text-sm text-slate-300 leading-relaxed font-medium">
+                          切り抜き動画を作成・公開する際は、必ず元配信のURLを概要欄に記載してください。<br class="hidden sm:block"/>
+                          また、意図的な悪意のある編集や、文脈を著しく損なう切り抜きは禁止とさせていただきます。
+                      </p>
+                  </div>
+
+                  <div class="grid sm:grid-cols-2 gap-8">
+                      <div>
+                           <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                              <span class="material-symbols-outlined text-sm text-cyan-glow">video_camera_front</span>
+                              収益化について
+                          </h4>
+                          <p class="text-sm text-slate-400 leading-relaxed font-medium">
+                              YouTubeのパートナープログラム等を利用した収益化は、現状認めております。<br>ただし、公式から削除依頼があった場合は速やかに応じてください。
+                          </p>
+                      </div>
+                      <div>
+                           <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                              <span class="material-symbols-outlined text-sm text-cyan-glow">timer</span>
+                              メンバー限定配信
+                          </h4>
+                          <p class="text-sm text-slate-400 leading-relaxed font-medium">
+                              メンバー限定配信の切り抜きは、スクリーンショットを含め全て禁止となります。内容のSNS等での共有もお控えください。
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </section>
+      </div>
+  </div>
+</Layout>
