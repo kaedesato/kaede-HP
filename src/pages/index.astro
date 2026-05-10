@@ -160,6 +160,7 @@ import Layout from '../layouts/Layout.astro';
 
 <script>
   import { getChannelData } from '../lib/utils/youtube';
+  import { escapeHTML } from '../lib/utils/security';
 
   document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -199,11 +200,11 @@ import Layout from '../layouts/Layout.astro';
         const video = data.latestVideo;
         const dateStr = new Date(video.pubDate).toLocaleDateString('ja-JP');
         latestVideoContainer.innerHTML = `
-          <a href="${video.link}" target="_blank" rel="noopener noreferrer" class="block relative aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer bg-bg-card">
+          <a href="${escapeHTML(video.link)}" target="_blank" rel="noopener noreferrer" class="block relative aspect-video rounded-xl overflow-hidden border border-white/10 shadow-2xl group cursor-pointer bg-bg-card">
               <img
-                  alt="${video.title.replace(/"/g, '&quot;')}"
+                  alt="${escapeHTML(video.title)}"
                   class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  src="${video.thumbnail}"
+                  src="${escapeHTML(video.thumbnail)}"
                   loading="lazy"
                   decoding="async"
               />
@@ -213,10 +214,10 @@ import Layout from '../layouts/Layout.astro';
                   </div>
               </div>
               <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-bg-dark via-bg-dark/90 to-transparent">
-                  <p class="text-xl font-black truncate text-white">${video.title}</p>
+                  <p class="text-xl font-black truncate text-white">${escapeHTML(video.title)}</p>
                   <div class="flex items-center gap-3 mt-3">
                       <span class="text-xs bg-primary text-white px-2 py-0.5 rounded font-black">NEW</span>
-                      <p class="text-xs text-white/50 font-bold">${dateStr} • Latest</p>
+                      <p class="text-xs text-white/50 font-bold">${escapeHTML(dateStr)} • Latest</p>
                   </div>
               </div>
           </a>
