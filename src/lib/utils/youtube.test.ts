@@ -67,4 +67,20 @@ describe('getChannelData', () => {
 
         expect(fetchSpy).toHaveBeenCalled();
     });
+
+    it('should handle general fetch errors gracefully', async () => {
+        const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+        fetchSpy.mockRejectedValue(new Error('Fetch failed'));
+
+        const validId = 'UC-123_456';
+        const result = await getChannelData(validId);
+
+        expect(result).toEqual({ isLive: false, latestVideo: null });
+        expect(fetchSpy).toHaveBeenCalled();
+
+        consoleWarnSpy.mockRestore();
+        consoleErrorSpy.mockRestore();
+    });
 });
