@@ -28,26 +28,26 @@
 
 ### 依存関係のインストール
 ```bash
-npm install
+bun install
 ```
 
 ### 開発サーバーの起動
 ```bash
-npm run dev
+bun run dev
 ```
 
 ### ビルド
 ```bash
-npm run build
+bun run build
 ```
 
 ### 型チェックとテスト
 ```bash
 # 型チェック
-npm run check
+bun run check
 
 # ユニットテスト
-npm run test:unit
+bun run test:unit
 ```
 
 ## 📝 ライセンス
