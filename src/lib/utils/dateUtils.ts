@@ -11,12 +11,3 @@ export function normalizeDate(dateStr: string): string {
   return `${y.padStart(4, '0')}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
 }
 
-export function sortEventsByDate<T extends { date: string }>(events: T[]): T[] {
-  return [...events].sort((a, b) => {
-    const dateA = normalizeDate(a.date);
-    const dateB = normalizeDate(b.date);
-    if (dateA < dateB) return -1;
-    if (dateA > dateB) return 1;
-    return 0;
-  });
-}
